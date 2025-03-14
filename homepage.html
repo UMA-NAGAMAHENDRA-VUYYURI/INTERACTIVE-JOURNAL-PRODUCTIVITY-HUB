@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Journal and Productivity Hub</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9fafb;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header Styles */
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #059669;
+    }
+
+    header nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header nav a {
+      margin: 0 1rem;
+      color: #4b5563;
+      transition: color 0.3s ease;
+    }
+
+    header nav a:hover {
+      color: #059669;
+    }
+
+    header nav .cta {
+      background-color: #059669;
+      color: #ffffff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      transition: background-color 0.3s ease;
+    }
+
+    header nav .cta:hover {
+      background-color: #047857;
+    }
+
+    /* Hero Section Styles */
+    .hero {
+      position: relative;
+      color: #ffffff;
+      padding: 4rem 0;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+      z-index: 1;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .hero .buttons a {
+      background-color: #ffffff;
+      color: #059669;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero .buttons a:hover {
+      background-color: #f0fdf4;
+    }
+
+    .hero .buttons a.outline {
+      background-color: transparent;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+    }
+
+    .hero .buttons a.outline:hover {
+      background-color: #ffffff;
+      color: #059669;
+    }
+
+    /* Background Slideshow Animation */
+    @keyframes slideshow {
+      0% {
+        background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      }
+      20% {
+        background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      }
+      40% {
+        background-image: url('https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      }
+      60% {
+        background-image: url('https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      }
+      80% {
+        background-image: url('https://images.unsplash.com/photo-1506784926709-22f1ec395907?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      }
+      100% {
+        background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      }
+    }
+
+    .hero {
+      animation: slideshow 20s infinite; /* 5 images * 4s each = 20s */
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Content Section Styles */
+    .content-section {
+      padding: 4rem 0;
+    }
+
+    .content-section .content-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .content-section .content-wrapper img {
+      width: 300px;
+      height: auto;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .content-section h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #059669;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-section p {
+      font-size: 1.1rem;
+      color: #4b5563;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-section ul {
+      list-style-type: disc;
+      margin-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .content-section ul li {
+      font-size: 1rem;
+      color: #4b5563;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Testimonials Section Styles */
+    .testimonials {
+      background-color: #f3f4f6;
+      padding: 4rem 0;
+      overflow: hidden; /* Hide overflow for scrolling effect */
+    }
+
+    .testimonials h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #059669;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .testimonials .scroll-container {
+      display: flex;
+      gap: 2rem;
+      animation: scroll 20s linear infinite; /* Animation for scrolling */
+    }
+
+    .testimonials .testimonial {
+      flex-shrink: 0; /* Prevent shrinking */
+      width: 300px; /* Fixed width for each testimonial */
+      background-color: #ffffff;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .testimonials .testimonial p {
+      font-size: 1.1rem;
+      color: #4b5563;
+      margin-bottom: 1rem;
+    }
+
+    .testimonials .testimonial .user {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .testimonials .testimonial .user img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%; /* Circular image */
+      object-fit: cover;
+    }
+
+    .testimonials .testimonial .user .name {
+      font-weight: 600;
+      color: #059669;
+    }
+
+    /* Keyframes for Scrolling Animation */
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #059669;
+      color: #ffffff;
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin-bottom: 1rem;
+    }
+
+    footer a {
+      color: #ffffff;
+      margin: 0 1rem;
+      transition: opacity 0.3s ease;
+    }
+
+    footer a:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <div class="logo">JournalHub</div>
+      <div>
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="file:///C:/Users/koush/OneDrive/Desktop/aboutus2.html">About Us</a>
+        <a href="#" class="cta">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>Your All-in-One Journaling and Productivity Hub</h1>
+      <p>Write, Organize, and Achieve More – All in One Place.</p>
+      <div class="buttons">
+        <a href="#">Get Started for Free</a>
+        <a href="#" class="outline">Explore Features</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Sections -->
+  <section class="content-section">
+    <div class="container">
+      <div class="content-wrapper">
+        <div>
+          <h2>Smart Journaling</h2>
+          <p>Our platform offers a rich text editor that allows you to format your journal entries with headings, bullets, highlights, quotes, and embedded media like images and videos. Track your mood by tagging entries with mood icons and visualize emotional trends over time. Organize your journal with tags and categories such as Work, Personal, or Travel. Get inspired with daily reflective and creative writing prompts to keep your journaling consistent and meaningful.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Smart Journaling">
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="content-wrapper">
+        <img src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Blogging & Content Creation">
+        <div>
+          <h2>Blogging & Content Creation</h2>
+          <p>Create stunning blogs with our drag-and-drop blog builder, making it easy to customize layouts and designs. Collaborate with teams and co-authors in real-time for seamless content creation. Choose between public or private blogs to control your audience and visibility settings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="content-wrapper">
+        <div>
+          <h2>Task & Productivity Suite</h2>
+          <p>Stay organized with our to-do lists and task management tools. Categorize and prioritize your tasks, and set recurring reminders for daily, weekly, or monthly activities. Track your progress with interactive charts that visualize completed versus pending tasks.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Task & Productivity Suite">
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="content-wrapper">
+        <img src="https://images.unsplash.com/photo-1506784926709-22f1ec395907?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Smart Reminders & Notifications">
+        <div>
+          <h2>Smart Reminders & Notifications</h2>
+          <p>Receive intelligent alerts via in-app notifications or emails to stay on top of your tasks and deadlines. Sync your tasks with Google Calendar or other productivity apps for seamless integration into your workflow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="content-wrapper">
+        <div>
+          <h2>Productivity Dashboard</h2>
+          <p>Gain valuable insights with our analytics tools. View task completion rates, writing trends, and recurring habits to better understand your productivity patterns. Use time management tools to track the time spent on writing and tasks, helping you optimize your efficiency.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Productivity Dashboard">
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+      <div class="content-wrapper">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Multi-Platform Sync & Accessibility">
+        <div>
+          <h2>Multi-Platform Sync & Accessibility</h2>
+          <p>Access your journal, tasks, and reminders across multiple devices with real-time syncing. Our offline mode allows you to write and manage tasks even without an internet connection, ensuring you stay productive wherever you are.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+    <div class="container">
+      <h2>What Our Users Are Saying</h2>
+      <div class="scroll-container">
+        <!-- Testimonial 1 -->
+        <div class="testimonial">
+          <p>"This app has transformed how I organize my life and express my thoughts!"</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Jane Doe">
+            <div class="name">Jane Doe, Student</div>
+          </div>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="testimonial">
+          <p>"The productivity dashboard is a game-changer for tracking my habits and tasks."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="John Smith">
+            <div class="name">John Smith, Freelancer</div>
+          </div>
+        </div>
+        <!-- Testimonial 3 -->
+        <div class="testimonial">
+          <p>"I love the mood tracker and how it helps me reflect on my emotions."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Emily Brown">
+            <div class="name">Emily Brown, Writer</div>
+          </div>
+        </div>
+        <!-- Testimonial 4 -->
+        <div class="testimonial">
+          <p>"The collaborative features make it perfect for team projects and shared goals."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Michael Lee">
+            <div class="name">Michael Lee, Project Manager</div>
+          </div>
+        </div>
+        <!-- Testimonial 5 -->
+        <div class="testimonial">
+          <p>"The daily prompts inspire me to write more consistently and creatively."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson">
+            <div class="name">Sarah Johnson, Content Creator</div>
+          </div>
+        </div>
+        <!-- Duplicate Testimonials for Seamless Scrolling -->
+        <div class="testimonial">
+          <p>"This app has transformed how I organize my life and express my thoughts!"</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Jane Doe">
+            <div class="name">Jane Doe, Student</div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>"The productivity dashboard is a game-changer for tracking my habits and tasks."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="John Smith">
+            <div class="name">John Smith, Freelancer</div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>"I love the mood tracker and how it helps me reflect on my emotions."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Emily Brown">
+            <div class="name">Emily Brown, Writer</div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>"The collaborative features make it perfect for team projects and shared goals."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Michael Lee">
+            <div class="name">Michael Lee, Project Manager</div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <p>"The daily prompts inspire me to write more consistently and creatively."</p>
+          <div class="user">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Sarah Johnson">
+            <div class="name">Sarah Johnson, Content Creator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 JournalHub. All rights reserved.</p>
+      <div>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
