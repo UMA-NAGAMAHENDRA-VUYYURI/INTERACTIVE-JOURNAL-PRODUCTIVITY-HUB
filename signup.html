@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Interactive Journal Productivity Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9fafb; /* Light background for the page */
+      color: #1f2937;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Form Container */
+    .form-container {
+      background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); /* Background image for the form */
+      background-size: cover;
+      background-position: center;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Overlay for Form Container */
+    .form-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white overlay */
+      border-radius: 0.5rem;
+      z-index: -1;
+    }
+
+    h2 {
+      color: #059669;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    /* Form Elements */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; /* Reduced gap between form elements */
+    }
+
+    label {
+      font-weight: 600;
+      color: #4b5563;
+      margin-bottom: 0.25rem; /* Reduced gap between label and input */
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.375rem;
+      margin-top: 0.25rem; /* Reduced gap between label and input */
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #059669;
+      box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.1);
+    }
+
+    /* Security Question Section */
+    #security_question {
+      margin-bottom: 1rem;
+    }
+
+    #custom_security_question {
+      display: none;
+    }
+
+    /* Terms & Conditions */
+    .terms {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .terms input[type="checkbox"] {
+      margin: 0;
+    }
+
+    .terms label {
+      margin: 0;
+      font-weight: 400;
+    }
+
+    /* Submit Button */
+    button {
+      background-color: #059669;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.375rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #047857;
+    }
+
+    /* Error Messages */
+    input:invalid {
+      border-color: #ef4444;
+    }
+
+    .error-message {
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 640px) {
+      .form-container {
+        padding: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Link Styling */
+    a {
+      color: #059669;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Form Container -->
+  <div class="form-container">
+    <h2>Sign Up</h2>
+    <form id="signupForm" autocomplete="on">
+      <div>
+        <label for="fname">FIRST NAME</label>
+        <input type="text" id="fname" name="first_name" required minlength="2" autofocus autocomplete="given-name">
+      </div>
+      <div>
+        <label for="lname">LAST NAME</label>
+        <input type="text" id="lname" name="last_name" required minlength="2" autocomplete="family-name">
+      </div>
+      <div>
+        <label for="fullname">FULL NAME</label>
+        <input type="text" id="fullname" name="full_name" required minlength="3" autocomplete="name">
+      </div>
+      <div>
+        <label for="username">USERNAME</label>
+        <input type="text" id="username" name="username" required pattern="[A-Za-z0-9]{3,20}" title="Only letters and numbers allowed, 3-20 characters" autocomplete="username">
+      </div>
+      <div>
+        <label for="email">EMAIL ADDRESS</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+      </div>
+      <div>
+        <label for="phone">PHONE NUMBER</label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" title="Enter a valid 10-digit phone number" autocomplete="tel">
+      </div>
+      <div>
+        <label for="address">ADDRESS</label>
+        <input type="text" id="address" name="address" required autocomplete="street-address">
+      </div>
+      <div>
+        <label for="country">COUNTRY</label>
+        <select id="country" name="country" required autocomplete="country">
+          <option value="">Select Country</option>
+          <option value="USA">USA</option>
+          <option value="Canada">Canada</option>
+          <option value="UK">UK</option>
+          <option value="India">India</option>
+          <option value="Australia">Australia</option>
+          <option value="Germany">Germany</option>
+          <option value="France">France</option>
+          <option value="Italy">Italy</option>
+          <option value="Brazil">Brazil</option>
+          <option value="Japan">Japan</option>
+          <option value="China">China</option>
+          <option value="Russia">Russia</option>
+          <option value="Mexico">Mexico</option>
+          <option value="South Africa">South Africa</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Spain">Spain</option>
+          <option value="Netherlands">Netherlands</option>
+        </select>
+      </div>
+      <div>
+        <label for="security_question">SECURITY QUESTION</label>
+        <select id="security_question" name="security_question" required autocomplete="off">
+          <option value="">Select a security question</option>
+          <option value="pet">What was your first pet's name?</option>
+          <option value="school">What was the name of your first school?</option>
+          <option value="city">In what city were you born?</option>
+          <option value="mother_maiden">What is your mother's maiden name?</option>
+          <option value="favorite_teacher">Who was your favorite teacher?</option>
+          <option value="childhood_friend">What was the name of your childhood best friend?</option>
+          <option value="first_car">What was the model of your first car?</option>
+          <option value="birth_hospital">In which hospital were you born?</option>
+        </select>
+        <input type="text" id="custom_security_question" name="custom_security_question" placeholder="Enter your own security question" style="margin-top: 10px;" autocomplete="off">
+      </div>
+      <div>
+        <label for="security_answer">SECURITY ANSWER</label>
+        <input type="text" id="security_answer" name="security_answer" required autocomplete="off">
+      </div>
+      <div>
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" required minlength="6" autocomplete="new-password">
+      </div>
+      <div>
+        <label for="confirm_password">CONFIRM PASSWORD</label>
+        <input type="password" id="confirm_password" name="confirm_password" required minlength="6" autocomplete="new-password">
+      </div>
+      <div class="terms">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms">I agree to the Terms & Conditions</label>
+      </div>
+      <button type="submit">SUBMIT</button>
+    </form>
+  </div>
+</body>
+</html>
