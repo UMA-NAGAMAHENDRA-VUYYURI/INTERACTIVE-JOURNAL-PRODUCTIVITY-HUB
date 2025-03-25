@@ -2,8 +2,31 @@
 <html>
     <head>
         <link rel="stylesheet" href="editor.css">
+        <style>#nav{
+            display:flex;
+            place-content: left;
+            flex-direction: column;            
+            width:50px;
+            padding:10px;
+      height:100%;
+            background-color:#2f9bda;
+            
+            border-style: ridge;
+        }
+        #nav ul{list-style-type:none;
+        width:100%;}
+        
+        </style>
     </head>
     <body>
+        <div id="nav">
+            <ul>
+                <li><a href="#" title="journal"><img src="#" ></a></li>
+                <li><a href="#" title="to-do"><img src="#" ></a></li>
+                <li><a href="#" title="blog"><img src="#" ></a></li>
+            </ul>
+        </div>
+        
         <div id="editor" contenteditable="true">
            start journaling.....
         </div>
