@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Interactive Journal & Productivity Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #6b8cae;
+            --accent-color: #ff7e5f;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            padding: 20px 0;
+            transition: var(--transition);
+            position: relative;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: var(--transition);
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(74, 111, 165, 0.1);
+            border-left: 3px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .sidebar-menu i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background-color: #f5f7fa;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .user-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-profile img:hover {
+            opacity: 0.8;
+        }
+
+        .profile-upload {
+            display: none;
+        }
+
+        .profile-upload-label {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .profile-upload-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .profile-upload-label:hover .profile-upload-overlay {
+            opacity: 1;
+        }
+
+        /* Settings Card */
+        .settings-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .settings-card.active {
+            display: block;
+        }
+
+        .settings-card h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Settings Sections */
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .settings-section h3 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Select Dropdown */
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper:after {
+            content: "▼";
+            font-size: 0.8rem;
+            color: var(--dark-color);
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        select.form-control {
+            appearance: none;
+            padding-right: 35px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Theme Colors */
+        .theme-colors {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .theme-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .theme-color:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-color.active {
+            border-color: var(--dark-color);
+            transform: scale(1.1);
+        }
+
+        /* Notification Preferences */
+        .notification-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notification-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+        }
+
+        .notification-option-info {
+            flex: 1;
+        }
+
+        .notification-option-info h4 {
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .notification-option-info p {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Integration Cards */
+        .integration-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .integration-card {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+        }
+
+        .integration-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .integration-icon {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .integration-info {
+            flex: 1;
+        }
+
+        .integration-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .integration-info p {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 15px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(74, 111, 165, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 15px;
+            max-height: 500px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 20px;
+            background-color: #eee;
+            border-radius: var(--border-radius);
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: var(--border-radius);
+            transition: width 0.5s ease;
+        }
+
+        /* Team Members */
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        /* Privacy Security Grid */
+        .privacy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .privacy-card {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .privacy-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow);
+        }
+
+        .privacy-card h4 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .privacy-card p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px 0;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+
+            .sidebar-menu li {
+                flex: 0 0 auto;
+                margin-bottom: 0;
+            }
+
+            .sidebar-menu a {
+                padding: 10px 15px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+
+            .sidebar-menu a:hover, .sidebar-menu a.active {
+                border-left: none;
+                border-bottom: 3px solid var(--primary-color);
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .integration-cards, .privacy-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dark Theme */
+        body.dark-theme {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+
+        body.dark-theme .sidebar,
+        body.dark-theme .settings-card,
+        body.dark-theme .notification-option,
+        body.dark-theme .integration-card,
+        body.dark-theme .faq-question,
+        body.dark-theme .privacy-card {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+
+        body.dark-theme .sidebar-header,
+        body.dark-theme .settings-card h2 {
+            border-bottom-color: #444;
+        }
+
+        body.dark-theme .form-control {
+            background-color: #3d3d3d;
+            border-color: #444;
+            color: #f0f0f0;
+        }
+
+        body.dark-theme .notification-option,
+        body.dark-theme .integration-card,
+        body.dark-theme .faq-question,
+        body.dark-theme .privacy-card {
+            background-color: #3d3d3d;
+        }
+
+        body.dark-theme .notification-option-info p,
+        body.dark-theme .integration-info p,
+        body.dark-theme .privacy-card p {
+            color: #aaa;
+        }
+
+        body.dark-theme .sidebar-menu a {
+            color: #f0f0f0;
+        }
+
+        body.dark-theme .select-wrapper:after {
+            color: #f0f0f0;
+        }
+
+        body.dark-theme .faq-item {
+            border-color: #444;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Settings</h3>
+            </div>
+            <ul class="sidebar-menu" id="settings-menu">
+                <!-- Menu items will be dynamically generated -->
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 id="settings-title">Settings</h1>
+                <div class="user-profile">
+                    <label class="profile-upload-label">
+                        <input type="file" id="profile-upload" class="profile-upload" accept="image/*">
+                        <img id="user-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Profile">
+                        <div class="profile-upload-overlay">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Settings cards will be dynamically generated here -->
+            <div id="settings-content"></div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // App State
+        const state = {
+            user: {
+                name: "Sarah Johnson",
+                email: "sarah.johnson@example.com",
+                username: "sarahj",
+                avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                bio: "Writer, productivity enthusiast, and lifelong learner."
+            },
+            settings: {
+                theme: "default",
+                darkMode: false,
+                fontSize: 16,
+                fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+                notifications: {
+                    enabled: true,
+                    journalReminders: true,
+                    taskReminders: true,
+                    blogComments: true,
+                    productivityReports: false,
+                    communityUpdates: false,
+                    method: "in-app",
+                    dailyTime: "09:00"
+                },
+                privacy: {
+                    publicProfile: false,
+                    defaultJournalPrivacy: "private",
+                    journalDiscovery: true,
+                    twoFactorAuth: false,
+                    loginNotifications: true,
+                    dataCollection: true,
+                    personalizedContent: true,
+                    activityLogs: true,
+                    dataRetention: "30days",
+                    encryption: true
+                },
+                integrations: {
+                    googleCalendar: true,
+                    dropbox: false,
+                    slack: false
+                },
+                storage: {
+                    used: 4.2,
+                    total: 12,
+                    autoBackup: "weekly",
+                    cloudStorage: true
+                }
+            },
+            faqs: [
+                {
+                    question: "How do I recover deleted journal entries?",
+                    answer: "Deleted journal entries are kept in the trash for 30 days. You can restore them from the Trash section in your journal. After 30 days, they are permanently deleted."
+                },
+                {
+                    question: "Can I use the app offline?",
+                    answer: "Yes, you can create and edit journal entries and tasks offline. Your changes will sync automatically when you reconnect to the internet."
+                },
+                {
+                    question: "How do I share my journal with someone?",
+                    answer: "Go to the journal entry you want to share, click the Share button, and choose whether to share via link, email, or with specific users in our community."
+                },
+                {
+                    question: "What's the difference between journals and blogs?",
+                    answer: "Journals are private by default and meant for personal reflection. Blogs are public and meant to be shared with others. You can convert a journal entry to a blog post anytime."
+                }
+            ],
+            team: [
+                {
+                    name: "David Chen",
+                    role: "Founder & CEO",
+                    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+                },
+                {
+                    name: "Sarah Johnson",
+                    role: "Lead Designer",
+                    avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+                },
+                {
+                    name: "Michael Rodriguez",
+                    role: "Lead Developer",
+                    avatar: "https://randomuser.me/api/portraits/men/67.jpg"
+                },
+                {
+                    name: "Emily Wilson",
+                    role: "Community Manager",
+                    avatar: "https://randomuser.me/api/portraits/women/28.jpg"
+                }
+            ],
+            availableIntegrations: [
+                {
+                    name: "Google Calendar",
+                    description: "Sync your tasks and reminders",
+                    icon: "fab fa-google",
+                    connected: true
+                },
+                {
+                    name: "Dropbox",
+                    description: "Backup your journal entries",
+                    icon: "fab fa-dropbox",
+                    connected: false
+                },
+                {
+                    name: "Slack",
+                    description: "Get reminders in Slack",
+                    icon: "fab fa-slack",
+                    connected: false
+                },
+                {
+                    name: "Trello",
+                    description: "Connect your Trello boards",
+                    icon: "fab fa-trello",
+                    connected: false
+                },
+                {
+                    name: "Microsoft To-Do",
+                    description: "Sync with Microsoft To-Do",
+                    icon: "fab fa-microsoft",
+                    connected: false
+                },
+                {
+                    name: "Spotify",
+                    description: "Background music for writing",
+                    icon: "fab fa-spotify",
+                    connected: false
+                }
+            ],
+            themes: [
+                {
+                    name: "default",
+                    displayName: "Default",
+                    primaryColor: "#4a6fa5",
+                    secondaryColor: "#6b8cae",
+                    accentColor: "#ff7e5f"
+                },
+                {
+                    name: "dark",
+                    displayName: "Dark",
+                    primaryColor: "#343a40",
+                    secondaryColor: "#495057",
+                    accentColor: "#ff7e5f"
+                },
+                {
+                    name: "green",
+                    displayName: "Green",
+                    primaryColor: "#28a745",
+                    secondaryColor: "#5cb85c",
+                    accentColor: "#ffc107"
+                },
+                {
+                    name: "purple",
+                    displayName: "Purple",
+                    primaryColor: "#6f42c1",
+                    secondaryColor: "#9b6bcc",
+                    accentColor: "#ff7e5f"
+                },
+                {
+                    name: "orange",
+                    displayName: "Orange",
+                    primaryColor: "#fd7e14",
+                    secondaryColor: "#ff9b4e",
+                    accentColor: "#6f42c1"
+                }
+            ]
+        };
+
+        // DOM Elements
+        const settingsMenu = document.getElementById('settings-menu');
+        const settingsContent = document.getElementById('settings-content');
+        const settingsTitle = document.getElementById('settings-title');
+        const userAvatar = document.getElementById('user-avatar');
+        const profileUpload = document.getElementById('profile-upload');
+        const toast = document.getElementById('toast');
+
+        // API Endpoints - Using JSONPlaceholder for demonstration
+        const API_ENDPOINTS = {
+            getUser: 'https://jsonplaceholder.typicode.com/users/1',
+            updateUser: 'https://jsonplaceholder.typicode.com/users/1',
+            uploadImage: 'https://api.imgbb.com/1/upload?key=YOUR_IMGBB_API_KEY' // Replace with your imgBB API key
+        };
+
+        // Show toast notification
+        function showToast(message, duration = 3000) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // Initialize the app
+        async function init() {
+            // Set user info
+            userAvatar.src = state.user.avatar;
+
+            try {
+                // Load user data from API
+                const response = await fetch(API_ENDPOINTS.getUser);
+                if (!response.ok) throw new Error('Failed to fetch user data');
+                
+                const userData = await response.json();
+                state.user = { 
+                    ...state.user, 
+                    name: userData.name || state.user.name,
+                    email: userData.email || state.user.email,
+                    username: userData.username || state.user.username
+                };
+                
+                // Update UI
+                renderAccountSettings();
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                showToast("Error loading user data. Using local data.");
+            }
+
+            // Load saved settings from localStorage
+            loadSettings();
+
+            // Render the settings menu
+            renderMenu();
+
+            // Render the initial content (Account settings)
+            renderContent('account');
+
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        // Upload profile picture to imgBB
+        async function uploadProfilePicture(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            
+            try {
+                const response = await fetch(API_ENDPOINTS.uploadImage, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) throw new Error('Failed to upload image');
+                
+                const data = await response.json();
+                return data.data.url; // Return the URL of the uploaded image
+            } catch (error) {
+                console.error("Error uploading image:", error);
+                throw error;
+            }
+        }
+
+        // Update user profile in the API
+        async function updateUserProfile(profileData) {
+            try {
+                const response = await fetch(API_ENDPOINTS.updateUser, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(profileData)
+                });
+                
+                if (!response.ok) throw new Error('Failed to update profile');
+                
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error("Error updating profile:", error);
+                throw error;
+            }
+        }
+
+        // Load settings from localStorage
+        function loadSettings() {
+            const savedSettings = localStorage.getItem('journalAppSettings');
+            if (savedSettings) {
+                Object.assign(state.settings, JSON.parse(savedSettings));
+                
+                // Apply theme
+                applyTheme(state.settings.theme);
+                
+                // Apply dark mode if enabled
+                if (state.settings.darkMode) {
+                    document.body.classList.add('dark-theme');
+                }
+                
+                // Apply font size
+                document.body.style.fontSize = state.settings.fontSize + 'px';
+                
+                // Apply font family
+                document.body.style.fontFamily = state.settings.fontFamily;
+            }
+        }
+
+        // Save settings to localStorage and API
+        async function saveSettings() {
+            localStorage.setItem('journalAppSettings', JSON.stringify(state.settings));
+            
+            // In a real app, you would also save to your backend API
+            console.log("Settings saved to localStorage");
+        }
+
+        // Apply theme colors
+        function applyTheme(themeName) {
+            const theme = state.themes.find(t => t.name === themeName) || state.themes[0];
+            
+            // Update CSS variables
+            document.documentElement.style.setProperty('--primary-color', theme.primaryColor);
+            document.documentElement.style.setProperty('--secondary-color', theme.secondaryColor);
+            document.documentElement.style.setProperty('--accent-color', theme.accentColor);
+            
+            // Update state
+            state.settings.theme = themeName;
+        }
+
+        // Render the settings menu
+        function renderMenu() {
+            const menuItems = [
+                { id: 'account', icon: 'fa-user', text: 'Account' },
+                { id: 'appearance', icon: 'fa-palette', text: 'Appearance' },
+                { id: 'notifications', icon: 'fa-bell', text: 'Notifications' },
+                { id: 'privacy', icon: 'fa-lock', text: 'Privacy & Security' },
+                { id: 'integrations', icon: 'fa-plug', text: 'Integrations' },
+                { id: 'data', icon: 'fa-database', text: 'Data & Storage' },
+                { id: 'help', icon: 'fa-question-circle', text: 'Help & Support' },
+                { id: 'about', icon: 'fa-info-circle', text: 'About' }
+            ];
+
+            settingsMenu.innerHTML = menuItems.map(item => `
+                <li><a href="#${item.id}" data-section="${item.id}"><i class="fas ${item.icon}"></i> ${item.text}</a></li>
+            `).join('');
+
+            // Set first item as active
+            settingsMenu.querySelector('a').classList.add('active');
+        }
+
+        // Render content based on section
+        function renderContent(sectionId) {
+            settingsTitle.textContent = `${capitalizeFirstLetter(sectionId)} Settings`;
+            
+            switch (sectionId) {
+                case 'account':
+                    renderAccountSettings();
+                    break;
+                case 'appearance':
+                    renderAppearanceSettings();
+                    break;
+                case 'notifications':
+                    renderNotificationSettings();
+                    break;
+                case 'privacy':
+                    renderPrivacySettings();
+                    break;
+                case 'integrations':
+                    renderIntegrationSettings();
+                    break;
+                case 'data':
+                    renderDataSettings();
+                    break;
+                case 'help':
+                    renderHelpSettings();
+                    break;
+                case 'about':
+                    renderAboutSettings();
+                    break;
+                default:
+                    renderAccountSettings();
+            }
+        }
+
+        // Render Account Settings
+        function renderAccountSettings() {
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="account">
+                    <h2>Profile Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="form-control" value="${state.user.name.split(' ')[0]}">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" value="${state.user.name.split(' ')[1] || ''}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" class="form-control" value="${state.user.username}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" value="${state.user.email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" class="form-control" rows="3">${state.user.bio}</textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn" id="save-profile">Save Changes</button>
+                        <button class="btn btn-danger" id="cancel-profile">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="settings-card" id="account-password">
+                    <h2>Password</h2>
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" class="form-control">
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn" id="update-password">Update Password</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Appearance Settings
+        function renderAppearanceSettings() {
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="appearance">
+                    <h2>Theme Preferences</h2>
+                    <div class="settings-section">
+                        <h3>Color Theme</h3>
+                        <div class="theme-colors">
+                            ${state.themes.map(theme => `
+                                <div class="theme-color ${state.settings.theme === theme.name ? 'active' : ''}" 
+                                     data-color="${theme.name}" 
+                                     title="${theme.displayName}"
+                                     style="background-color: ${theme.primaryColor};">
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Dark Mode</h3>
+                        <label class="toggle-label">
+                            <span>Enable Dark Mode</span>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="darkModeToggle" ${state.settings.darkMode ? 'checked' : ''}>
+                                <span class="slider"></span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Font Preferences</h3>
+                        <div class="form-group">
+                            <label for="fontFamily">Font Family</label>
+                            <div class="select-wrapper">
+                                <select id="fontFamily" class="form-control">
+                                    <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" ${state.settings.fontFamily.includes('Segoe UI') ? 'selected' : ''}>System Default</option>
+                                    <option value="'Roboto', sans-serif" ${state.settings.fontFamily.includes('Roboto') ? 'selected' : ''}>Roboto</option>
+                                    <option value="'Open Sans', sans-serif" ${state.settings.fontFamily.includes('Open Sans') ? 'selected' : ''}>Open Sans</option>
+                                    <option value="'Lato', sans-serif" ${state.settings.fontFamily.includes('Lato') ? 'selected' : ''}>Lato</option>
+                                    <option value="'Montserrat', sans-serif" ${state.settings.fontFamily.includes('Montserrat') ? 'selected' : ''}>Montserrat</option>
+                                    <option value="'Merriweather', serif" ${state.settings.fontFamily.includes('Merriweather') ? 'selected' : ''}>Merriweather</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fontSize">Base Font Size</label>
+                            <input type="range" id="fontSize" class="form-control" min="12" max="18" value="${state.settings.fontSize}">
+                            <span id="fontSizeValue">${state.settings.fontSize}px</span>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn" id="apply-appearance">Apply Changes</button>
+                        <button class="btn btn-danger" id="reset-appearance">Reset to Default</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Notification Settings
+        function renderNotificationSettings() {
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="notifications">
+                    <h2>Notification Preferences</h2>
+                    <div class="settings-section">
+                        <h3>General Notifications</h3>
+                        <label class="toggle-label">
+                            <span>Enable All Notifications</span>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="enableNotifications" ${state.settings.notifications.enabled ? 'checked' : ''}>
+                                <span class="slider"></span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Notification Types</h3>
+                        <div class="notification-options">
+                            <div class="notification-option">
+                                <div class="notification-option-info">
+                                    <h4>Journal Reminders</h4>
+                                    <p>Receive reminders to write in your journal</p>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="journalReminders" ${state.settings.notifications.journalReminders ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </div>
+                            <div class="notification-option">
+                                <div class="notification-option-info">
+                                    <h4>Task Due Dates</h4>
+                                    <p>Get alerts when tasks are due or overdue</p>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="taskReminders" ${state.settings.notifications.taskReminders ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </div>
+                            <div class="notification-option">
+                                <div class="notification-option-info">
+                                    <h4>Blog Comments</h4>
+                                    <p>Notify me when someone comments on my blog</p>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="blogComments" ${state.settings.notifications.blogComments ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </div>
+                            <div class="notification-option">
+                                <div class="notification-option-info">
+                                    <h4>Productivity Insights</h4>
+                                    <p>Weekly reports on your productivity and journaling habits</p>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="productivityReports" ${state.settings.notifications.productivityReports ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </div>
+                            <div class="notification-option">
+                                <div class="notification-option-info">
+                                    <h4>Community Updates</h4>
+                                    <p>News and updates from the community</p>
+                                </div>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="communityUpdates" ${state.settings.notifications.communityUpdates ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Notification Delivery</h3>
+                        <div class="form-group">
+                            <label>Preferred Notification Method</label>
+                            <div class="select-wrapper">
+                                <select id="notificationMethod" class="form-control">
+                                    <option value="in-app" ${state.settings.notifications.method === 'in-app' ? 'selected' : ''}>In-App Notifications</option>
+                                    <option value="email" ${state.settings.notifications.method === 'email' ? 'selected' : ''}>Email Notifications</option>
+                                    <option value="both" ${state.settings.notifications.method === 'both' ? 'selected' : ''}>Both In-App and Email</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="notificationTime">Daily Digest Time</label>
+                            <input type="time" id="notificationTime" class="form-control" value="${state.settings.notifications.dailyTime}">
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn" id="save-notifications">Save Preferences</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Privacy Settings
+        function renderPrivacySettings() {
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="privacy">
+                    <h2>Privacy & Security</h2>
+                    
+                    <div class="privacy-grid">
+                        <!-- Account Privacy -->
+                        <div class="privacy-card">
+                            <h4><i class="fas fa-user-shield"></i> Account Privacy</h4>
+                            <p>Control who can see your profile and activity</p>
+                            <label class="toggle-label">
+                                <span>Public Profile</span>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="publicProfile" ${state.settings.privacy.publicProfile ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </label>
+                            <p class="form-text">When enabled, others can see your profile</p>
+                        </div>
+                        
+                        <!-- Journal Privacy -->
+                        <div class="privacy-card">
+                            <h4><i class="fas fa-book"></i> Journal Privacy</h4>
+                            <p>Manage default privacy for new journal entries</p>
+                            <div class="form-group">
+                                <label>Default Privacy</label>
+                                <div class="select-wrapper">
+                                    <select id="defaultJournalPrivacy" class="form-control">
+                                        <option value="private" ${state.settings.privacy.defaultJournalPrivacy === 'private' ? 'selected' : ''}>Private</option>
+                                        <option value="friends" ${state.settings.privacy.defaultJournalPrivacy === 'friends' ? 'selected' : ''}>Friends Only</option>
+                                        <option value="public" ${state.settings.privacy.defaultJournalPrivacy === 'public' ? 'selected' : ''}>Public</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="toggle-label">
+                                <span>Allow Discovery</span>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="journalDiscovery" ${state.settings.privacy.journalDiscovery ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <!-- Security -->
+                        <div class="privacy-card">
+                            <h4><i class="fas fa-shield-alt"></i> Security</h4>
+                            <p>Enhance your account security</p>
+                            <label class="toggle-label">
+                                <span>Two-Factor Auth</span>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="twoFactorAuth" ${state.settings.privacy.twoFactorAuth ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </label>
+                            <label class="toggle-label">
+                                <span>Login Notifications</span>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="loginNotifications" ${state.settings.privacy.loginNotifications ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </label>
+                            <label class="toggle-label">
+                                <span>Data Encryption</span>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="encryption" ${state.settings.privacy.encryption ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <!-- Data Privacy -->
+                        <div class="privacy-card">
+                            <h4><i class="fas fa-database"></i> Data Privacy</h4>
+                            <p>Control how your data is used</p>
+                            <label class="toggle-label">
+                                <span>Activity Logs</span>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="activityLogs" ${state.settings.privacy.activityLogs ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </label>
+                            <div class="form-group">
+                                <label>Data Retention</label>
+                                <div class="select-wrapper">
+                                    <select id="dataRetention" class="form-control">
+                                        <option value="30days" ${state.settings.privacy.dataRetention === '30days' ? 'selected' : ''}>30 Days</option>
+                                        <option value="6months" ${state.settings.privacy.dataRetention === '6months' ? 'selected' : ''}>6 Months</option>
+                                        <option value="1year" ${state.settings.privacy.dataRetention === '1year' ? 'selected' : ''}>1 Year</option>
+                                        <option value="forever" ${state.settings.privacy.dataRetention === 'forever' ? 'selected' : ''}>Keep Forever</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <label class="toggle-label">
+                                <span>Personalized Content</span>
+                                <div class="toggle-switch">
+                                    <input type="checkbox" id="personalizedContent" ${state.settings.privacy.personalizedContent ? 'checked' : ''}>
+                                    <span class="slider"></span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn" id="save-privacy">Save Privacy Settings</button>
+                        <button class="btn btn-danger" id="download-data">Download My Data</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Integration Settings
+        function renderIntegrationSettings() {
+            const connectedIntegrations = state.availableIntegrations.filter(i => i.connected);
+            const availableIntegrations = state.availableIntegrations.filter(i => !i.connected);
+
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="integrations">
+                    <h2>Connected Apps</h2>
+                    <div class="settings-section">
+                        <h3>Your Integrations</h3>
+                        <div class="integration-cards">
+                            ${connectedIntegrations.map(integration => `
+                                <div class="integration-card">
+                                    <div class="integration-icon">
+                                        <i class="${integration.icon}"></i>
+                                    </div>
+                                    <div class="integration-info">
+                                        <h4>${integration.name}</h4>
+                                        <p>${integration.description}</p>
+                                    </div>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" id="${integration.name.toLowerCase().replace(' ', '-')}" ${integration.connected ? 'checked' : ''}>
+                                        <span class="slider"></span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Available Integrations</h3>
+                        <div class="integration-cards">
+                            ${availableIntegrations.map(integration => `
+                                <div class="integration-card">
+                                    <div class="integration-icon">
+                                        <i class="${integration.icon}"></i>
+                                    </div>
+                                    <div class="integration-info">
+                                        <h4>${integration.name}</h4>
+                                        <p>${integration.description}</p>
+                                    </div>
+                                    <button class="btn" data-integration="${integration.name.toLowerCase().replace(' ', '-')}">Connect</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Data Settings
+        function renderDataSettings() {
+            const percentageUsed = Math.round((state.settings.storage.used / state.settings.storage.total) * 100);
+            
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="data">
+                    <h2>Data & Storage</h2>
+                    <div class="settings-section">
+                        <h3>Storage Usage</h3>
+                        <div class="storage-usage">
+                            <div class="progress-bar">
+                                <div class="progress" style="width: ${percentageUsed}%"></div>
+                            </div>
+                            <p>${state.settings.storage.used} GB of ${state.settings.storage.total} GB used (${percentageUsed}%)</p>
+                        </div>
+                        <div class="storage-details">
+                            <p><strong>Journal Entries:</strong> 1.8 GB</p>
+                            <p><strong>Attachments:</strong> 2.1 GB</p>
+                            <p><strong>Other Data:</strong> 0.3 GB</p>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Data Management</h3>
+                        <div class="form-group">
+                            <label for="autoBackup">Automatic Backups</label>
+                            <div class="select-wrapper">
+                                <select id="autoBackup" class="form-control">
+                                    <option value="daily" ${state.settings.storage.autoBackup === 'daily' ? 'selected' : ''}>Daily</option>
+                                    <option value="weekly" ${state.settings.storage.autoBackup === 'weekly' ? 'selected' : ''}>Weekly</option>
+                                    <option value="monthly" ${state.settings.storage.autoBackup === 'monthly' ? 'selected' : ''}>Monthly</option>
+                                    <option value="off" ${state.settings.storage.autoBackup === 'off' ? 'selected' : ''}>Off</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label class="toggle-label">
+                            <span>Store Attachments in Cloud</span>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="cloudStorage" ${state.settings.storage.cloudStorage ? 'checked' : ''}>
+                                <span class="slider"></span>
+                            </div>
+                        </label>
+                        <p class="form-text">When enabled, large attachments will be stored in cloud storage to save space</p>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Data Export & Import</h3>
+                        <div class="btn-group">
+                            <button class="btn" id="export-data">Export All Data</button>
+                            <button class="btn" id="import-data">Import Data</button>
+                        </div>
+                        <p class="form-text">Export your journals, tasks, and settings as a backup</p>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Clear Data</h3>
+                        <div class="form-group">
+                            <label for="clearCache">Clear Cache</label>
+                            <button id="clearCache" class="btn btn-danger">Clear Now (128 MB)</button>
+                            <p class="form-text">Clear temporary files to free up space</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render Help Settings
+        function renderHelpSettings() {
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="help">
+                    <h2>Help & Support</h2>
+                    <div class="settings-section">
+                        <h3>Frequently Asked Questions</h3>
+                        <div class="faq-list">
+                            ${state.faqs.map((faq, index) => `
+                                <div class="faq-item">
+                                    <div class="faq-question">
+                                        <span>${faq.question}</span>
+                                        <i class="fas fa-chevron-down"></i>
+                                    </div>
+                                    <div class="faq-answer">
+                                        <p>${faq.answer}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Contact Support</h3>
+                        <div class="contact-form">
+                            <div class="form-group">
+                                <label for="supportSubject">Subject</label>
+                                <input type="text" id="supportSubject" class="form-control" placeholder="What do you need help with?">
+                            </div>
+                            <div class="form-group">
+                                <label for="supportMessage">Message</label>
+                                <textarea id="supportMessage" class="form-control" rows="5" placeholder="Describe your issue in detail..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="supportAttachments">Attachments (optional)</label>
+                                <input type="file" id="supportAttachments" class="form-control">
+                            </div>
+                            <button class="btn" id="send-support">Send Message</button>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <h3>Community Resources</h3>
+                        <div class="btn-group">
+                            <button class="btn"><i class="fas fa-book"></i> Documentation</button>
+                            <button class="btn"><i class="fas fa-video"></i> Tutorial Videos</button>
+                            <button class="btn"><i class="fas fa-users"></i> Community Forum</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Render About Settings
+        function renderAboutSettings() {
+            settingsContent.innerHTML = `
+                <div class="settings-card active" id="about">
+                    <h2>About Interactive Journal & Productivity Hub</h2>
+                    <div class="about-content">
+                        <p>Welcome to your all-in-one journaling and productivity platform. Our mission is to help you organize your thoughts, boost your productivity, and achieve your personal and professional goals.</p>
+                        
+                        <h3>Version Information</h3>
+                        <p><strong>Current Version:</strong> 2.4.1</p>
+                        <p><strong>Last Updated:</strong> June 15, 2023</p>
+                        <p><strong>What's New:</strong> Dark mode, improved task management, and faster syncing across devices.</p>
+                        
+                        <h3>Our Team</h3>
+                        <div class="team-members">
+                            ${state.team.map(member => `
+                                <div class="team-member">
+                                    <img src="${member.avatar}" alt="${member.name}">
+                                    <h4>${member.name}</h4>
+                                    <p>${member.role}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <h3>Legal Information</h3>
+                        <p><a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a> | <a href="#">Cookie Policy</a></p>
+                        
+                        <div class="btn-group">
+                            <button class="btn"><i class="fas fa-heart"></i> Rate Us</button>
+                            <button class="btn"><i class="fas fa-share-alt"></i> Share With Friends</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Menu navigation
+            settingsMenu.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A' || e.target.parentElement.tagName === 'A') {
+                    e.preventDefault();
+                    const link = e.target.tagName === 'A' ? e.target : e.target.parentElement;
+                    const sectionId = link.getAttribute('data-section') || link.getAttribute('href').substring(1);
+                    
+                    // Update active menu item
+                    document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    // Render the content
+                    renderContent(sectionId);
+                }
+            });
+
+            // Profile picture upload
+            profileUpload.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                if (!file.type.match('image.*')) {
+                    showToast('Please select an image file');
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) { // 5MB limit
+                    showToast('Image size should be less than 5MB');
+                    return;
+                }
+                
+                try {
+                    // Show loading state
+                    userAvatar.style.opacity = '0.5';
+                    
+                    // In a real app, you would upload to your server or a service like imgBB
+                    // For demo purposes, we'll just use a local URL
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result;
+                        userAvatar.src = imageUrl;
+                        state.user.avatar = imageUrl;
+                        userAvatar.style.opacity = '1';
+                        showToast('Profile picture updated!');
+                        
+                        // In a real app, you would save this to your backend
+                        console.log('Profile picture updated locally');
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    // In a real app, you would upload to your API like this:
+                    /*
+                    const imageUrl = await uploadProfilePicture(file);
+                    userAvatar.src = imageUrl;
+                    state.user.avatar = imageUrl;
+                    
+                    // Update the user profile in the backend
+                    await updateUserProfile({
+                        ...state.user,
+                        avatar: imageUrl
+                    });
+                    
+                    showToast('Profile picture updated!');
+                    */
+                } catch (error) {
+                    console.error('Error uploading profile picture:', error);
+                    showToast('Failed to update profile picture');
+                    userAvatar.style.opacity = '1';
+                }
+            });
+
+            // Delegate events for dynamic content
+            settingsContent.addEventListener('click', (e) => {
+                // Theme color selection
+                if (e.target.classList.contains('theme-color')) {
+                    document.querySelectorAll('.theme-color').forEach(c => c.classList.remove('active'));
+                    e.target.classList.add('active');
+                    const themeName = e.target.getAttribute('data-color');
+                    applyTheme(themeName);
+                    saveSettings();
+                }
+
+                // FAQ accordion
+                if (e.target.classList.contains('faq-question') || e.target.parentElement.classList.contains('faq-question')) {
+                    const faqItem = e.target.classList.contains('faq-question') ? 
+                        e.target.parentElement : 
+                        e.target.parentElement.parentElement;
+                    
+                    // Toggle this item
+                    faqItem.classList.toggle('active');
+                    
+                    // Close other open FAQs
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        if (item !== faqItem && item.classList.contains('active')) {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+
+                // Save profile button
+                if (e.target.id === 'save-profile') {
+                    const firstName = document.getElementById('firstName').value;
+                    const lastName = document.getElementById('lastName').value;
+                    const username = document.getElementById('username').value;
+                    const email = document.getElementById('email').value;
+                    const bio = document.getElementById('bio').value;
+                    
+                    state.user.name = `${firstName} ${lastName}`.trim();
+                    state.user.username = username;
+                    state.user.email = email;
+                    state.user.bio = bio;
+                    
+                    // Update the user profile in the API
+                    updateUserProfile(state.user)
+                        .then(() => {
+                            showToast('Profile updated successfully!');
+                        })
+                        .catch(error => {
+                            console.error('Error updating profile:', error);
+                            showToast('Error updating profile');
+                        });
+                }
+
+                // Update password button
+                if (e.target.id === 'update-password') {
+                    const currentPassword = document.getElementById('currentPassword').value;
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+                    
+                    if (newPassword !== confirmPassword) {
+                        showToast('New passwords do not match!');
+                        return;
+                    }
+                    
+                    // In a real app, you would validate current password and update it
+                    showToast('Password updated successfully!');
+                    document.getElementById('currentPassword').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmPassword').value = '';
+                }
+
+                // Apply appearance changes
+                if (e.target.id === 'apply-appearance') {
+                    const fontSize = document.getElementById('fontSize').value;
+                    const fontFamily = document.getElementById('fontFamily').value;
+                    
+                    state.settings.fontSize = parseInt(fontSize);
+                    state.settings.fontFamily = fontFamily;
+                    
+                    // Apply changes
+                    document.body.style.fontSize = `${fontSize}px`;
+                    document.body.style.fontFamily = fontFamily;
+                    
+                    saveSettings();
+                    showToast('Appearance settings saved!');
+                }
+
+                // Reset appearance to default
+                if (e.target.id === 'reset-appearance') {
+                    if (confirm('Reset all appearance settings to default?')) {
+                        state.settings.theme = 'default';
+                        state.settings.fontSize = 16;
+                        state.settings.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+                        
+                        // Reset UI
+                        document.querySelectorAll('.theme-color').forEach(c => c.classList.remove('active'));
+                        document.querySelector('.theme-color[data-color="default"]').classList.add('active');
+                        document.getElementById('fontSize').value = 16;
+                        document.getElementById('fontSizeValue').textContent = '16px';
+                        document.getElementById('fontFamily').value = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+                        
+                        // Apply changes
+                        document.body.style.fontSize = '16px';
+                        document.body.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+                        applyTheme('default');
+                        
+                        saveSettings();
+                        showToast('Appearance settings reset to default!');
+                    }
+                }
+
+                // Dark mode toggle
+                if (e.target.id === 'darkModeToggle') {
+                    state.settings.darkMode = e.target.checked;
+                    document.body.classList.toggle('dark-theme', e.target.checked);
+                    saveSettings();
+                }
+
+                // Font size slider
+                if (e.target.id === 'fontSize') {
+                    document.getElementById('fontSizeValue').textContent = `${e.target.value}px`;
+                }
+
+                // Save notification preferences
+                if (e.target.id === 'save-notifications') {
+                    state.settings.notifications.enabled = document.getElementById('enableNotifications').checked;
+                    state.settings.notifications.journalReminders = document.getElementById('journalReminders').checked;
+                    state.settings.notifications.taskReminders = document.getElementById('taskReminders').checked;
+                    state.settings.notifications.blogComments = document.getElementById('blogComments').checked;
+                    state.settings.notifications.productivityReports = document.getElementById('productivityReports').checked;
+                    state.settings.notifications.communityUpdates = document.getElementById('communityUpdates').checked;
+                    state.settings.notifications.method = document.getElementById('notificationMethod').value;
+                    state.settings.notifications.dailyTime = document.getElementById('notificationTime').value;
+                    
+                    saveSettings();
+                    showToast('Notification preferences saved!');
+                }
+
+                // Save privacy settings
+                if (e.target.id === 'save-privacy') {
+                    state.settings.privacy.publicProfile = document.getElementById('publicProfile').checked;
+                    state.settings.privacy.defaultJournalPrivacy = document.getElementById('defaultJournalPrivacy').value;
+                    state.settings.privacy.journalDiscovery = document.getElementById('journalDiscovery').checked;
+                    state.settings.privacy.twoFactorAuth = document.getElementById('twoFactorAuth').checked;
+                    state.settings.privacy.loginNotifications = document.getElementById('loginNotifications').checked;
+                    state.settings.privacy.encryption = document.getElementById('encryption').checked;
+                    state.settings.privacy.activityLogs = document.getElementById('activityLogs').checked;
+                    state.settings.privacy.dataRetention = document.getElementById('dataRetention').value;
+                    state.settings.privacy.personalizedContent = document.getElementById('personalizedContent').checked;
+                    
+                    saveSettings();
+                    showToast('Privacy settings saved!');
+                }
+
+                // Download data button
+                if (e.target.id === 'download-data') {
+                    showToast('Preparing your data for download...');
+                    // In a real app, this would generate and download a file
+                }
+
+                // Connect integration button
+                if (e.target.classList.contains('btn') && e.target.hasAttribute('data-integration')) {
+                    const integrationName = e.target.getAttribute('data-integration');
+                    showToast(`Connecting to ${integrationName.replace('-', ' ')}...`);
+                    // In a real app, this would initiate OAuth flow
+                }
+
+                // Toggle integration
+                if (e.target.type === 'checkbox' && e.target.closest('.integration-card')) {
+                    const integrationCard = e.target.closest('.integration-card');
+                    const integrationName = integrationCard.querySelector('h4').textContent;
+                    const integrationId = integrationName.toLowerCase().replace(' ', '-');
+                    
+                    // Update state
+                    const integration = state.availableIntegrations.find(i => 
+                        i.name.toLowerCase().replace(' ', '-') === integrationId
+                    );
+                    
+                    if (integration) {
+                        integration.connected = e.target.checked;
+                        saveSettings();
+                        console.log(`${integrationName} integration is now ${e.target.checked ? 'enabled' : 'disabled'}`);
+                        showToast(`${integrationName} integration ${e.target.checked ? 'enabled' : 'disabled'}`);
+                    }
+                }
+
+                // Save storage settings
+                if (e.target.id === 'autoBackup' || e.target.id === 'cloudStorage') {
+                    if (e.target.id === 'autoBackup') {
+                        state.settings.storage.autoBackup = e.target.value;
+                    } else {
+                        state.settings.storage.cloudStorage = e.target.checked;
+                    }
+                    saveSettings();
+                    showToast('Storage settings updated');
+                }
+
+                // Export data button
+                if (e.target.id === 'export-data') {
+                    showToast('Preparing your data export...');
+                    // In a real app, this would generate and download a file
+                }
+
+                // Clear cache button
+                if (e.target.id === 'clearCache') {
+                    if (confirm('Are you sure you want to clear the cache? This will remove temporary files but not your data.')) {
+                        showToast('Cache cleared successfully!');
+                    }
+                }
+
+                // Send support message
+                if (e.target.id === 'send-support') {
+                    const subject = document.getElementById('supportSubject').value;
+                    const message = document.getElementById('supportMessage').value;
+                    
+                    if (!subject || !message) {
+                        showToast('Please fill in both subject and message fields');
+                        return;
+                    }
+                    
+                    showToast('Support request submitted. We\'ll get back to you soon!');
+                    document.getElementById('supportSubject').value = '';
+                    document.getElementById('supportMessage').value = '';
+                }
+            });
+
+            // Input events for dynamic content
+            settingsContent.addEventListener('input', (e) => {
+                // Font size slider
+                if (e.target.id === 'fontSize') {
+                    document.getElementById('fontSizeValue').textContent = `${e.target.value}px`;
+                }
+
+                // Handle all toggle switches
+                if (e.target.type === 'checkbox' && e.target.classList.contains('toggle-switch')) {
+                    const settingPath = e.target.id;
+                    updateToggleState(settingPath, e.target.checked);
+                }
+            });
+
+            // Change events for dynamic content
+            settingsContent.addEventListener('change', (e) => {
+                // Handle all select dropdowns
+                if (e.target.tagName === 'SELECT') {
+                    const settingPath = e.target.id;
+                    updateSelectState(settingPath, e.target.value);
+                }
+            });
+        }
+
+        // Update toggle switch state in the settings object
+        function updateToggleState(path, value) {
+            const pathParts = path.split('.');
+            let current = state.settings;
+            
+            for (let i = 0; i < pathParts.length - 1; i++) {
+                if (!current[pathParts[i]]) {
+                    current[pathParts[i]] = {};
+                }
+                current = current[pathParts[i]];
+            }
+            
+            current[pathParts[pathParts.length - 1]] = value;
+            saveSettings();
+        }
+
+        // Update select dropdown state in the settings object
+        function updateSelectState(path, value) {
+            const pathParts = path.split('.');
+            let current = state.settings;
+            
+            for (let i = 0; i < pathParts.length - 1; i++) {
+                if (!current[pathParts[i]]) {
+                    current[pathParts[i]] = {};
+                }
+                current = current[pathParts[i]];
+            }
+            
+            current[pathParts[pathParts.length - 1]] = value;
+            saveSettings();
+        }
+
+        // Helper function to capitalize first letter
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
