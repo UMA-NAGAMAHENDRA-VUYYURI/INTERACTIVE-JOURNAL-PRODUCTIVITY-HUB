@@ -1,34 +1,112 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel="stylesheet" href="editor.css">
-        <style>#nav{
-            display:flex;
-            place-content: left;
-            flex-direction: column;            
-            width:50px;
-            padding:10px;
-      height:100%;
-            background-color:#2f9bda;
-            
-            border-style: ridge;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Layout</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-        #nav ul{list-style-type:none;
-        width:100%;}
-        
-        </style>
-    </head>
-    <body>
-        <div id="nav">
-            <ul>
-                <li><a href="#" title="journal"><img src="#" ></a></li>
-                <li><a href="#" title="to-do"><img src="#" ></a></li>
-                <li><a href="#" title="blog"><img src="#" ></a></li>
-            </ul>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .top-bar {
+            background: #333;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+        }
+        .sidebar {
+            width: 100px;
+            background: #444;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 5px 0;
+            display: block;
+            background: #555;
+            text-align: center;
+            cursor: pointer;
+        }
+        .sidebar a:hover {
+            background: #666;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        #editor {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+        .top-bar li {
+            display: flex;
+        }
+        .sidebar a > img {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            place-content: center;
+            width: 10px;
+            height: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <ul>
+            <li>Home</li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <a onclick="showContent('journal')"><img src=""></a>
+            <a onclick="showContent('to-do')"><img src=""></a>
+            <a onclick="showContent('blog')"><img src=""></a>
         </div>
-        
-        <div id="editor" contenteditable="true">
-           start journaling.....
+        <div class="content" id="content-area">
+            <h2>Welcome!</h2>
+            <p>Select an option from the sidebar.</p>
         </div>
-    </body>
+    </div>
+    
+    <script>
+        function showContent(section) {
+            const contentArea = document.getElementById("content-area");
+            const content = {
+                journal: `<div id='editor' class='section' contenteditable='true'>
+                            Start journaling...
+                          </div>`,
+                "to-do": "<p>To-do list</p>",
+                blog: `<div id='editor' class='section' contenteditable='true'>
+                            Start blogging...
+                       </div>`,
+            };
+            contentArea.innerHTML = content[section];
+        }
+    </script>
+</body>
 </html>
