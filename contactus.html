@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us-Interactive Journal and Productivity Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      color: #059669;
+    }
+    .contact-info p {
+      margin: 10px 0;
+    }
+    form {
+      margin-top: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background: #2c3e50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #34495e;
+    }
+    .map {
+      margin-top: 20px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #777;
+    }
+    /* no comments */
+    .social-media {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .social-media h2 {
+      font-size: 1.5em;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .social-media a {
+      text-decoration: none;
+      margin: 0 10px;
+      display:inline-block;
+      transition: transform 0.3s ease;
+    }
+    .social-media a:hover {
+      transform: scale(1.1);
+    }
+    .social-media img {
+      width: 35px;
+      height: 35px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align: center;">Let's Connect</h1>
+    <p>"Need a hand? Whether you have questions, feedback, or just want to say hello, our team is here and ready to assist you!"</p>
+
+    <div class="contact-info">
+      <h2>Contact Information</h2>
+      <p>📞 Phone: <a href="tel:+918688468448" style="text-decoration: none; color: #dcea24;">(+91) 8688468448</a></p>
+      <a href="mailto:interactivejournalproductivityhub@email.com">📧 Email: interactivejournalproductivityhub@email.com</a>
+      <p>📍 Address: 123 Productivity Lane, Mangalagiri, Andhra Pradesh, 522503, India</p>
+    </div>
+
+    <form action="/submit-form" method="post">
+      <h2>Let’s Connect!</h2>
+      <label for="name">First Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="name">Last Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="subject">Subject:</label>
+      <select id="subject" name="subject" required>
+        <option value="general">General Inquiry</option>
+        <option value="support">Technical Support</option>
+        <option value="feedback">Feedback</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label for="comment">What do you have in mind:</label>
+      <textarea id="comment" name="comment" rows="5" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+    <div class="social-media">
+      <div style="text-align: center;">
+      <a href="https://facebook.com/yourpage" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png"alt="Facebook">
+      </a>
+      <a href="https://twitter.com/yourpage" target="_blank">
+        <img src="https://tse1.mm.bing.net/th?id=OIP.DV44nGSk9cGkHGBXGn2ZBwAAAA&pid=Api&P=0&h=180"alt="Twitter">
+      </a>
+      <a href="https://linkedin.com/yourpage" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/124/124011.png"alt="LinkedIn">
+      </a>
+      <a href="https://instagram.com/yourpage" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png"alt="Instagram">
+      </a>
+      </div>
+    </div>
+    <div class="footer">
+      <p>&copy 2025 Interactive Journal and Productivity Hub | All rights reserved.</p>
+      
+    </div>
+  </div>
+</body>
+</html>
