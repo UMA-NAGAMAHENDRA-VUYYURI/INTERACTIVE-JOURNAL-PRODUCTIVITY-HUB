@@ -13,7 +13,9 @@
   <div class="form-container">
     <h2>Sign Up</h2>
     <form id="signupForm" autocomplete="on">
-      <div>
+      <!-- Step 1 -->
+      <div class="form-step active" id="step-1">
+        <div>
         <label for="fname">FIRST NAME</label>
         <input type="text" id="fname" name="first_name" required minlength="2" autofocus autocomplete="given-name">
       </div>
@@ -33,6 +35,11 @@
         <label for="email">EMAIL ADDRESS</label>
         <input type="email" id="email" name="email" required autocomplete="email">
       </div>
+      <div class="navigation-buttons">
+        <button type="button" id="next-1">Next</button>
+      </div>
+    </div>
+    <div class="form-step" id="step-2">
       <div>
         <label for="phone">PHONE NUMBER</label>
         <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" title="Enter a valid 10-digit phone number" autocomplete="tel">
@@ -66,7 +73,7 @@
       </div>
       <div>
         <label for="security_question">SECURITY QUESTION</label>
-        <select id="security_question" name="security_question" required autocomplete="off">
+        <datalist id="security_question" name="security_question" required autocomplete="off">
           <option value="">Select a security question</option>
           <option value="pet">What was your first pet's name?</option>
           <option value="school">What was the name of your first school?</option>
@@ -76,13 +83,19 @@
           <option value="childhood_friend">What was the name of your childhood best friend?</option>
           <option value="first_car">What was the model of your first car?</option>
           <option value="birth_hospital">In which hospital were you born?</option>
-        </select>
+        </datalist>
         <input type="text" id="custom_security_question" name="custom_security_question" placeholder="Enter your own security question" style="margin-top: 10px;" autocomplete="off">
       </div>
       <div>
         <label for="security_answer">SECURITY ANSWER</label>
         <input type="text" id="security_answer" name="security_answer" required autocomplete="off">
       </div>
+      <div class="navigation-buttons">
+        <button type="button" id="prev-2">Previous</button>
+        <button type="button" id="next-2">Next</button>
+      </div>
+    </div>
+    <div class="form-step" id="step-3">
       <div>
         <label for="password">PASSWORD</label>
         <input type="password" id="password" name="password" required minlength="6" autocomplete="new-password">
@@ -96,7 +109,11 @@
         <label for="terms">i agree to terms and conditions</label>
       </div>
       
-      <button type="submit">SUBMIT</button>
+      <div class="navigation-buttons">
+        <button type="button" id="prev-3">Previous</button>
+        <button type="submit">Submit</button>
+      </div>
+      </div>
     </form>
   </div>
 </body>
