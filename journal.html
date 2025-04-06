@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>journalhub</title>
+    <style>
+        .toolbar{
+            display:flex;
+            flex-direction: column;
+            justify-content:right;
+            align-content: center;
+            
+
+        }
+        
+    </style>
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+   
+  
+  <div id="editor" contenteditable="true" style="border:1px solid #ccc; padding:10px; min-height:200px;">
+    Start journaling...
+  </div>
+  <div class="toolbar">
+    <button onclick="format('bold')"><b>B</b></button>
+      <button onclick="format('italic')"><i>I</i></button>
+      <button onclick="format('underline')"><u>U</u></button>
+      <button onclick="format('strikeThrough')"><s>S</s></button>
+
+      <button onclick="format('insertOrderedList')">OL</button>
+      <button onclick="format('insertUnorderedList')">UL</button>
+
+      <button onclick="format('justifyLeft')">Left</button>
+      <button onclick="format('justifyCenter')">Center</button>
+      <button onclick="format('justifyRight')">Right</button>
+      <select onchange="format('formatBlock', this.value)">
+        <option value="">Heading</option>
+        <option value="H1">H1</option>
+        <option value="H2">H2</option>
+        <option value="H3">H3</option>
+        <option value="P">P</option>
+      </select>
+
+</div>
+  
+  <script>
+    function format(command) {
+    document.execCommand(command, false, null);
+}
+function format(command, value) {
+    if (typeof document !== "undefined" && document.execCommand) {
+        document.execCommand(command, false, value);
+    }
+}
+
+  </script>
+  
+  </body>
+  </html>
+  
