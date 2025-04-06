@@ -15,7 +15,7 @@
         body {
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            height: 900px;
         }
         .top-bar {
             background: #333;
@@ -29,7 +29,7 @@
         }
         .sidebar {
             width: 100px;
-            background: #444;
+            background: #05e12a;
             color: white;
             display: flex;
             flex-direction: column;
@@ -41,12 +41,12 @@
             padding: 10px;
             margin: 5px 0;
             display: block;
-            background: #555;
+            background: #18b11b;
             text-align: center;
             cursor: pointer;
         }
         .sidebar a:hover {
-            background: #666;
+            background: #f18509;
         }
         .content {
             flex: 1;
@@ -60,33 +60,52 @@
             overflow-y: auto;
             background-color: #f9f9f9;
         }
-        .top-bar li {
+        .top-bar{
+            background-color:#08dbf7;
+            padding:15px;
+        }
+        
+        .nav-links {
+            list-style-type:none;
             display: flex;
+            gap: 30px; /* Adjust gap as needed */
+            
+           
+        }
+        .nav-links a:hover{
+            
+            color:#f18509;
+            text-decoration: underline;
+            font-size: 17px;
+        }
+        .nav-links li a{
+           text-decoration:none;
         }
         .sidebar a > img {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            place-content: center;
-            width: 10px;
-            height: 10px;
-        }
+    width: 30px;
+    height: 30px;
+    margin: 10px auto;
+    display: block;
+}
+
     </style>
 </head>
 <body>
     <div class="top-bar">
-        <ul>
-            <li>Home</li>
-            <li></li>
-            <li></li>
+        <ul class="nav-links">
+            <li><a href="">Home</a></li>
+            <li><a href="">Challenges</a></li>
+            <li><a href="">InsightFlow</a></li>
+            <li><a href="">Achievements</a></li>
+            <li><a href="">Notifications</a></li>
         </ul>
     </div>
     <div class="container">
         <div class="sidebar">
-            <a onclick="showContent('journal')"><img src=""></a>
-            <a onclick="showContent('to-do')"><img src=""></a>
-            <a onclick="showContent('blog')"><img src=""></a>
-            <a href="settings.html" title="settings"><img src=""></a>
+            <a onclick="showContent('journal')" title="JOURNAL"><img src="https://img.icons8.com/ios-filled/50/ffffff/journal.png" alt="Journal" width="24" height="24"></a>
+            <a onclick="showContent('to-do')" title="TO-DO"><img src="https://img.icons8.com/ios-filled/50/ffffff/todo-list.png" alt="To-Do Icon"></a>
+            <a onclick="showContent('blog')" title="BLOG"><img src="https://img.icons8.com/ios-filled/50/ffffff/blog.png" alt="Blog Icon"></a>
+            <a href="settings.html" title="settings"><img src="https://img.icons8.com/ios-filled/50/ffffff/settings.png" alt="Settings Icon"></a>
         </div>
         <div class="content" id="content-area">
             <h2>Welcome!</h2>
@@ -96,18 +115,21 @@
     
     <script>
         function showContent(section) {
-            const contentArea = document.getElementById("content-area");
-            const content = {
-                journal: `<div id='editor' class='section' contenteditable='true'>
-                            Start journaling...
-                          </div>`,
-                "to-do": "<p>To-do list</p>",
-                blog: `<div id='editor' class='section' contenteditable='true'>
-                            Start blogging...
-                       </div>`,
-            };
-            contentArea.innerHTML = content[section];
-        }
+    const contentArea = document.getElementById("content-area");
+
+    let content = "";
+
+    if (section === "journal") {
+        content = "<div id='editor' class='section' contenteditable='true'>Start journaling...</div>";
+    } else if (section === "to-do") {
+        content = "<p>To-do list</p>";
+    } else if (section === "blog") {
+        content = "<div id='editor' class='section' contenteditable='true'>Start blogging...</div>";
+    }
+
+    contentArea.innerHTML = content;
+}
+
     </script>
 </body>
 </html>
