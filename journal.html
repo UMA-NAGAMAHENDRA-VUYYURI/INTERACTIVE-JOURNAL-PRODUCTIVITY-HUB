@@ -24,29 +24,73 @@
     Start journaling...
   </div>
   <div class="toolbar">
-    <button onclick="format('bold')"><b>B</b></button>
+    <div class="toolbar">
+      <!-- Basic Formatting -->
+      <button onclick="format('bold')"><b>B</b></button>
       <button onclick="format('italic')"><i>I</i></button>
       <button onclick="format('underline')"><u>U</u></button>
       <button onclick="format('strikeThrough')"><s>S</s></button>
-
-      <button onclick="format('insertOrderedList')">OL</button>
-      <button onclick="format('insertUnorderedList')">UL</button>
-
+    
+      <!-- Text Alignment -->
       <button onclick="format('justifyLeft')">Left</button>
       <button onclick="format('justifyCenter')">Center</button>
       <button onclick="format('justifyRight')">Right</button>
+      <button onclick="format('justifyFull')">Justify</button>
+    
+      <!-- Lists -->
+      <button onclick="format('insertOrderedList')">OL</button>
+      <button onclick="format('insertUnorderedList')">UL</button>
+    
+      <!-- Indent / Outdent -->
+      <button onclick="format('indent')">Indent</button>
+      <button onclick="format('outdent')">Outdent</button>
+    
+      <!-- Headings & Paragraphs -->
       <select onchange="format('formatBlock', this.value)">
-        <option value="">Heading</option>
-        <option value="H1">H1</option>
-        <option value="H2">H2</option>
-        <option value="H3">H3</option>
-        <option value="H4">H4</option>
-        <option value="H5">H5</option>
-        <option value="H6">H6</option>
-        <option value="P">P</option>
+        <option value="">-- Format --</option>
+        <option value="h1">Heading 1</option>
+        <option value="h2">Heading 2</option>
+        <option value="h3">Heading 3</option>
+        <option value="p">Paragraph</option>
+        <option value="pre">Code</option>
+        <option value="blockquote">Blockquote</option>
       </select>
-
-</div>
+    
+      <!-- Fonts -->
+      <select onchange="format('fontName', this.value)">
+        <option value="">-- Font --</option>
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Times New Roman">Times</option>
+        <option value="Verdana">Verdana</option>
+      </select>
+    
+      <!-- Font Size -->
+      <select onchange="format('fontSize', this.value)">
+        <option value="">-- Size --</option>
+        <option value="1">Very Small</option>
+        <option value="2">Small</option>
+        <option value="3">Normal</option>
+        <option value="4">Large</option>
+        <option value="5">Very Large</option>
+        <option value="6">Huge</option>
+        <option value="7">Massive</option>
+      </select>
+    
+      <!-- Colors -->
+      <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
+      <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
+    
+      <!-- Insert Elements -->
+      <button onclick="insertLink()">🔗 Link</button>
+      <button onclick="insertImage()">🖼️ Image</button>
+      <button onclick="insertDate()">📅 Date</button>
+      <button onclick="insertHorizontalRule()">― HR</button>
+    
+      <!-- Clear Formatting -->
+      <button onclick="format('removeFormat')">❌ Clear</button>
+    </div>
   
   <script>
     function format(command) {
@@ -57,6 +101,25 @@ function format(command, value) {
         document.execCommand(command, false, value);
     }
 }
+function insertLink() {
+  const url = prompt("Enter the URL:");
+  if (url) format('createLink', url);
+}
+
+function insertImage() {
+  const url = prompt("Enter image URL:");
+  if (url) format('insertImage', url);
+}
+
+function insertDate() {
+  const date = new Date().toLocaleDateString();
+  document.execCommand('insertText', false, date);
+}
+
+function insertHorizontalRule() {
+  format('insertHorizontalRule');
+}
+
 
   </script>
   
