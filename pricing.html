@@ -4,24 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Journal Pricing | Grow Your Mind</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
-    :root {
-<<<<<<< HEAD
-=======
-    
->>>>>>> 1602dd3c007f8569f4a9a60941e2a45ef5499bcd
-      --primary-color: #4361ee;
+    /*:root {
+
+
+     /* --primary-color: #4361ee;
       --secondary-color: #3a0ca3;
-      --accent-color: #f72585;
-      --light-color: #f8f9fa;
+      --accent-color: #f72585;*/
+      /*--light-color: #f8f9fa;
       --dark-color: #212529;
       --gray-color: #6c757d;
       --success-color: #4cc9f0;
       --border-radius: 12px;
       --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
-    }
+    */
     
     * {
       margin: 0;
@@ -31,8 +29,8 @@
     }
     
     body {
-      background-color: var(--light-color);
-      color: var(--dark-color);
+      background-color: #f8f9fa;
+      color: #212529;
       line-height: 1.6;
     }
     
@@ -51,9 +49,9 @@
     
     h1 {
       font-size: 2.5rem;
-      color: var(--secondary-color);
+      color:  #3a0ca3;
       margin-bottom: 1rem;
-      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      background: linear-gradient(45deg, #4361ee,  #f72585);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -62,13 +60,13 @@
     
     h2 {
       font-size: 1.8rem;
-      color: var(--secondary-color);
+      color:  #3a0ca3;
       margin-bottom: 1rem;
     }
     
     .subtitle {
       font-size: 1.2rem;
-      color: var(--gray-color);
+      color: #6c757d;
       max-width: 700px;
       margin: 0 auto 2rem;
     }
@@ -83,11 +81,11 @@
     
     .pricing-card {
       background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       padding: 2rem;
       width: 320px;
-      transition: var(--transition);
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
       z-index: 1;
@@ -105,19 +103,19 @@
       left: 0;
       width: 100%;
       height: 5px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      background: linear-gradient(90deg, #4361ee,  #f72585);
     }
     
     .pricing-card.popular::before {
       height: 8px;
-      background: linear-gradient(90deg, var(--accent-color), #ff9e00);
+      background: linear-gradient(90deg,  #f72585, #ff9e00);
     }
     
     .popular-tag {
       position: absolute;
       top: 15px;
       right: -30px;
-      background-color: var(--accent-color);
+      background-color:  #f72585;
       color: white;
       padding: 0.3rem 2rem;
       font-size: 0.8rem;
@@ -129,7 +127,7 @@
     .pricing-title {
       font-size: 1.5rem;
       font-weight: 700;
-      color: var(--secondary-color);
+      color:  #3a0ca3;
       margin-bottom: 1rem;
       text-align: center;
     }
@@ -137,13 +135,13 @@
     .pricing-price {
       font-size: 2.2rem;
       font-weight: 800;
-      color: var(--primary-color);
+      color: #4361ee;
       text-align: center;
       margin-bottom: 1.5rem;
     }
     
     .pricing-card.popular .pricing-price {
-      color: var(--accent-color);
+      color:  #f72585
     }
     
     .pricing-features {
@@ -158,7 +156,7 @@
     }
     
     .feature-item i {
-      color: var(--success-color);
+      color: #4cc9f0;
       margin-right: 0.5rem;
       margin-top: 0.2rem;
     }
@@ -168,28 +166,28 @@
       width: 100%;
       padding: 1rem;
       border: none;
-      border-radius: var(--border-radius);
+      border-radius: 12px;
       font-weight: 600;
       font-size: 1rem;
       cursor: pointer;
-      transition: var(--transition);
+      transition: all 0.3s ease;
       text-align: center;
       text-decoration: none;
     }
     
     .btn-primary {
-      background-color: var(--primary-color);
+      background-color: #4361ee;
       color: white;
     }
     
     .btn-primary:hover {
-      background-color: var(--secondary-color);
+      background-color:  #3a0ca3;
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
     }
     
     .btn-accent {
-      background-color: var(--accent-color);
+      background-color:  #f72585;
       color: white;
     }
     
@@ -201,12 +199,12 @@
     
     .btn-outline {
       background-color: transparent;
-      color: var(--primary-color);
-      border: 2px solid var(--primary-color);
+      color: #4361ee;;
+      border: 2px solid #4361ee;
     }
     
     .btn-outline:hover {
-      background-color: var(--primary-color);
+      background-color: #4361ee;
       color: white;
     }
     
@@ -220,11 +218,11 @@
     .toggle-label {
       margin: 0 1rem;
       font-weight: 600;
-      color: var(--gray-color);
+      color: #6c757d;
     }
     
     .toggle-label.active {
-      color: var(--primary-color);
+      color: #4361ee
     }
     
     .toggle-switch {
@@ -265,7 +263,7 @@
     }
     
     input:checked + .slider {
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      background: linear-gradient(90deg, #4361ee,  #f72585);
     }
     
     input:checked + .slider:before {
@@ -277,14 +275,14 @@
       margin: 4rem auto;
       padding: 2rem;
       background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
     
     .faq-title {
       text-align: center;
       margin-bottom: 2rem;
-      color: var(--secondary-color);
+      color:  #3a0ca3;
     }
     
     .faq-item {
@@ -295,7 +293,7 @@
     
     .faq-question {
       font-weight: 600;
-      color: var(--secondary-color);
+      color:  #3a0ca3;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -307,7 +305,7 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease;
-      color: var(--gray-color);
+      color: #6c757d;
     }
     
     .faq-answer.active {
@@ -351,7 +349,7 @@
     .tooltip .tooltiptext {
       visibility: hidden;
       width: 200px;
-      background-color: var(--dark-color);
+      background-color: #212529;
       color: #fff;
       text-align: center;
       border-radius: 6px;
@@ -387,7 +385,7 @@
       display: block;
       width: 225px;
       padding: 15px 0;
-      background-color: var(--accent-color);
+      background-color:  #f72585;
       box-shadow: 0 5px 10px rgba(0,0,0,.1);
       color: #fff;
       font-size: 0.8rem;
@@ -412,7 +410,7 @@
           <input type="checkbox" id="billing-toggle">
           <span class="slider"></span>
         </label>
-        <span class="toggle-label">Yearly <span style="color: var(--accent-color);">(Save 20%)</span></span>
+        <span class="toggle-label">Yearly <span style="color:  #f72585;">(Save 20%)</span></span>
       </div>
     </header>
     
@@ -420,7 +418,7 @@
       <div class="pricing-card">
         <h3 class="pricing-title">Free Forever</h3>
         <div class="pricing-price">$0<span>/month</span></div>
-        <p style="text-align: center; color: var(--gray-color); margin-bottom: 1.5rem;">Dip your toes in</p>
+        <p style="text-align: center; color: #6c757d; margin-bottom: 1.5rem;">Dip your toes in</p>
         
         <div class="pricing-features">
           <div class="feature-item">
@@ -452,9 +450,9 @@
         <div class="ribbon">
           <div class="ribbon-content">Most Popular</div>
         </div>
-        <h3 class="pricing-title">GPH Grow</h3>
+        <h3 class="pricing-title">JPH Grow</h3>
         <div class="pricing-price">$9<span class="monthly-text">/month</span><span class="yearly-text" style="display:none;">/year</span></div>
-        <p style="text-align: center; color: var(--gray-color); margin-bottom: 1.5rem;">For serious writers & doers</p>
+        <p style="text-align: center; color: #6c757d; margin-bottom: 1.5rem;">For serious writers & doers</p>
         
         <div class="pricing-features">
           <div class="feature-item">
@@ -487,9 +485,9 @@
       </div>
       
       <div class="pricing-card">
-        <h3 class="pricing-title">GPH Master</h3>
+        <h3 class="pricing-title">JPH Master</h3>
         <div class="pricing-price">$29<span class="monthly-text">/month</span><span class="yearly-text" style="display:none;">/year</span></div>
-        <p style="text-align: center; color: var(--gray-color); margin-bottom: 1.5rem;">For teams and organizations</p>
+        <p style="text-align: center; color: #6c757d; margin-bottom: 1.5rem;">For teams and organizations</p>
         
         <div class="pricing-features">
           <div class="feature-item">
@@ -642,7 +640,7 @@
       
       card.addEventListener('mouseleave', () => {
         card.style.transform = '';
-        card.style.boxShadow = 'var(--box-shadow)';
+        card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
       });
     });
   </script>
