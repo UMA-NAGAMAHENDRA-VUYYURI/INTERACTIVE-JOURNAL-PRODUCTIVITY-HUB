@@ -1,50 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>journalhub</title>
-    <style>
-        .toolbar{
-            display:flex;
-            flex-direction: column;
-            justify-content:right;
-            align-content: center;
-            
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JournalHub</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-        }
-        
-    </style>
-    <link rel="stylesheet" href="editor.css">
+    .journal {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+
+    .toolbar button,
+    .toolbar select,
+    .toolbar input[type="color"] {
+      padding: 5px 10px;
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .toolbar input[type="color"] {
+      padding: 0;
+      width: 30px;
+      height: 30px;
+    }
+
+    #editor {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 300px;
+      overflow-y: auto;
+    }
+
+    #save {
+      margin-top: 10px;
+    }
+
+    #save button {
+      padding: 10px 20px;
+      background-color: green;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    #journal-status {
+      margin-top: 10px;
+      font-style: italic;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-   
-  
-  <div id="editor" contenteditable="true" style="border:1px solid #ccc; padding:10px; min-height:200px;">
-    Start journaling...
-  </div>
-  <div class="toolbar">
+  <div class="journal">
+    <!-- Toolbar -->
     <div class="toolbar">
       <!-- Basic Formatting -->
       <button onclick="format('bold')"><b>B</b></button>
       <button onclick="format('italic')"><i>I</i></button>
       <button onclick="format('underline')"><u>U</u></button>
       <button onclick="format('strikeThrough')"><s>S</s></button>
-    
+
       <!-- Text Alignment -->
       <button onclick="format('justifyLeft')">Left</button>
       <button onclick="format('justifyCenter')">Center</button>
       <button onclick="format('justifyRight')">Right</button>
       <button onclick="format('justifyFull')">Justify</button>
-    
+
       <!-- Lists -->
       <button onclick="format('insertOrderedList')">OL</button>
       <button onclick="format('insertUnorderedList')">UL</button>
-    
+
       <!-- Indent / Outdent -->
       <button onclick="format('indent')">Indent</button>
       <button onclick="format('outdent')">Outdent</button>
-    
+
       <!-- Headings & Paragraphs -->
       <select onchange="format('formatBlock', this.value)">
         <option value="">-- Format --</option>
@@ -55,7 +108,7 @@
         <option value="pre">Code</option>
         <option value="blockquote">Blockquote</option>
       </select>
-    
+
       <!-- Fonts -->
       <select onchange="format('fontName', this.value)">
         <option value="">-- Font --</option>
@@ -65,7 +118,7 @@
         <option value="Times New Roman">Times</option>
         <option value="Verdana">Verdana</option>
       </select>
-    
+
       <!-- Font Size -->
       <select onchange="format('fontSize', this.value)">
         <option value="">-- Size --</option>
@@ -77,52 +130,64 @@
         <option value="6">Huge</option>
         <option value="7">Massive</option>
       </select>
-    
+
       <!-- Colors -->
       <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
       <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
-    
+
       <!-- Insert Elements -->
       <button onclick="insertLink()">🔗 Link</button>
       <button onclick="insertImage()">🖼️ Image</button>
       <button onclick="insertDate()">📅 Date</button>
       <button onclick="insertHorizontalRule()">― HR</button>
-    
+
       <!-- Clear Formatting -->
       <button onclick="format('removeFormat')">❌ Clear</button>
     </div>
-  
+
+    <!-- Editor -->
+    <div id="editor" contenteditable="true">
+      Start journaling...
+    </div>
+
+    <!-- Save Section -->
+    <div id="save">
+      <button onclick="saveJournal()">Save Journal</button>
+    </div>
+    <div id="journal-status"></div>
+  </div>
+
   <script>
-    function format(command) {
-    document.execCommand(command, false, null);
-}
-function format(command, value) {
-    if (typeof document !== "undefined" && document.execCommand) {
+    function format(command, value = null) {
+      if (document.execCommand) {
         document.execCommand(command, false, value);
+      }
     }
-}
-function insertLink() {
-  const url = prompt("Enter the URL:");
-  if (url) format('createLink', url);
-}
 
-function insertImage() {
-  const url = prompt("Enter image URL:");
-  if (url) format('insertImage', url);
-}
+    function insertLink() {
+      const url = prompt("Enter the URL:");
+      if (url) format('createLink', url);
+    }
 
-function insertDate() {
-  const date = new Date().toLocaleDateString();
-  document.execCommand('insertText', false, date);
-}
+    function insertImage() {
+      const url = prompt("Enter image URL:");
+      if (url) format('insertImage', url);
+    }
 
-function insertHorizontalRule() {
-  format('insertHorizontalRule');
-}
+    function insertDate() {
+      const date = new Date().toLocaleDateString();
+      format('insertText', date);
+    }
 
+    function insertHorizontalRule() {
+      format('insertHorizontalRule');
+    }
 
+    function saveJournal() {
+      const content = document.getElementById("editor").innerHTML;
+      localStorage.setItem("journalEntry", content);
+      document.getElementById("journal-status").textContent = "Journal saved!";
+    }
   </script>
-  
-  </body>
-  </html>
-  
+</body>
+</html>
