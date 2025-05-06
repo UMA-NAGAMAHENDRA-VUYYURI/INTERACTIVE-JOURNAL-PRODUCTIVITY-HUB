@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOME</title>
+</head>
+<body>
+  <h1>Welcome to the Interactive Journal and Productivity Hub</h1>
+  <p>Your one-stop solution for journaling, productivity challenges, and more!</p>
+
+  <h2>Latest Journal Entry:</h2>
+  <div id="editor" style="border:1px solid #ccc; padding:10px; min-height:100px;"></div>
+
+  <script>
+    window.onload = function loadJournal() {
+      const savedContent = localStorage.getItem("journalEntry");
+      if (savedContent) {
+        document.getElementById("editor").innerHTML = savedContent;
+      } else {
+        document.getElementById("editor").textContent = "No journal entry found.";
+      }
+    };
+  </script>
+</body>
+</html>
