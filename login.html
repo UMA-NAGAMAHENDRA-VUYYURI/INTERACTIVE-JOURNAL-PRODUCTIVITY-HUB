@@ -68,11 +68,26 @@
             <label for="password">Password</label>
             <input type="password" id="password" placeholder="Enter your password" required>
             
-            <button type="submit">Login</button>
+            <button type="submit" onclick="loginUser()">Login</button>
         </form>
-        <p>or</p>
-        <p>Sign-in using </p>
-        <a href=""><img href="" alt="G"></a>
+        <a href="signup.html" style="text-align: center; display: block; margin-top: 10px; color: #2cec83;">Don't have an account? sign up</a>
+        
     </div>
+    <script>
+        function loginUser() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if(username === '' || password === '') {
+                alert('Please fill in all fields.');
+                return;
+            }
+            if(username===localStorage.getItem('username') && password===localStorage.getItem('password')) {
+                alert('Login successful!');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid username or password.');
+            }   
+        }
+    </script>
 </body>
 </html>
