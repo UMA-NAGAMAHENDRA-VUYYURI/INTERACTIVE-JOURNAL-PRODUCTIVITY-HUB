@@ -73,6 +73,15 @@
       font-style: italic;
       color: #333;
     }
+    #toolbar {
+  display: none;
+  position: absolute;
+  background: #f8f9fa;
+  border: 1px solid #ccc;
+  padding: 5px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
   </style>
 </head>
 <body>
@@ -114,15 +123,14 @@
       </select>
 
       <!-- Fonts -->
-      <select onchange="format('fontName', this.value)">
-        <option value="">-- Font --</option>
+       <input type="text" list="fontName" placeholder="Select Font" onchange="changeFont(this.value)" />
+    <datalist id="fontName">
         <option value="Arial">Arial</option>
-        <option value="Courier New">Courier</option>
+        <option value="Courier New">Courier New</option>
         <option value="Georgia">Georgia</option>
-        <option value="Times New Roman">Times</option>
+        <option value="Times New Roman">Times New Roman</option>
         <option value="Verdana">Verdana</option>
-      </select>
-
+    </datalist>
       <!-- Font Size -->
       <select onchange="format('fontSize', this.value)">
         <option value="">-- Size --</option>
@@ -160,6 +168,25 @@
     </div>
     <div id="journal-status"></div>
   </div>
+  <div id="toolbar">
+  <button onclick="formatText('bold')">Bold</button>
+  <button onclick="formatText('italic')">Italic</button>
+  <button onclick="formatText('underline')">Underline</button>
+  <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
+      <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
+      <button onclick="format('insertOrderedList')">OL</button>
+      <button onclick="format('insertUnorderedList')">UL</button>
+  <input type="text" list="fontName" placeholder="Select Font" onchange="changeFont(this.value)" />
+    <datalist id="fontName">
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Verdana">Verdana</option>
+    </datalist>
+
+</div>
+
 
   <script>
     function format(command, value = null) {
@@ -167,6 +194,11 @@
         document.execCommand(command, false, value);
       }
     }
+    function changeFont(fontName) {
+            if (fontName) {
+                document.getElementById("editor").style.fontFamily = fontName;
+            }
+        }
    
     function insertLink() {
       const url = prompt("Enter the URL:");
@@ -186,6 +218,27 @@
     function insertHorizontalRule() {
       format('insertHorizontalRule');
     }
+    document.addEventListener("mouseup", () => {
+  let selection = window.getSelection();
+  if (!selection.rangeCount) return;
+
+  let range = selection.getRangeAt(0);
+  let rect = range.getBoundingClientRect();
+  let toolbar = document.getElementById("toolbar");
+
+  if (selection.toString().trim()) {
+    toolbar.style.display = "block";
+    toolbar.style.top = `${rect.top + window.scrollY - 40}px`;
+    toolbar.style.left = `${rect.left + window.scrollX}px`;
+  } else {
+    toolbar.style.display = "none";
+  }
+});
+
+function formatText(command) {
+  document.execCommand(command, false, null);
+}
+
 
     function saveJournal() {
       const content = document.getElementById("editor").innerHTML;

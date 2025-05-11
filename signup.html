@@ -78,14 +78,14 @@
   <!-- Validation Script -->
   <script>
     function validateForm() {
-      const full_name = document.getElementById('fullname');
-      const username = document.getElementById('username');
-      const email = document.getElementById('email');
-      const dob = document.getElementById('dob');
-      const phone = document.getElementById('phone');
-      const country = document.getElementById('country');
-      const password = document.getElementById('password');
-      const confirm_password = document.getElementById('confirm_password');
+      const full_name = document.getElementById('fullname').value;
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const dob = document.getElementById('dob').value;
+      const phone = document.getElementById('phone').value;
+      const country = document.getElementById('country').value;
+      const password = document.getElementById('password').value;
+      const confirm_password = document.getElementById('confirm_password').value;
 
       if (
         full_name.value === '' || username.value === '' || email.value === '' ||
@@ -128,8 +128,24 @@
         alert('Please agree to the terms and conditions.');
         return false;
       }
+      
+    let users = localStorage.getItem('users') || '';
+    
+    // Check if username already exists
+    const entries = users.split(';');
+    for (let entry of entries) {
+        const [storedUser, _] = entry.split(':');
+        if (storedUser === username) {
+            alert('Username already exists!');
+            return;
+        }
+    }
 
-      alert('Sign up successful!');
+    // Append new user
+    users += `${username.value}:${password.value};`;
+    localStorage.setItem('users', users);
+    alert('Signup successful!');
+   window.location.href = 'dashboard.html'; // Redirect to login page
       return true;
     }
   </script>

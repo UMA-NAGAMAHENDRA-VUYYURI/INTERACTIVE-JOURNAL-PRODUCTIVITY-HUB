@@ -45,7 +45,7 @@
         }
         .container button {
             padding: 10px;
-            background-color: #2cec83;
+            background-color: orange;
             color: white;
             border: none;
             border-radius: 4px;
@@ -54,8 +54,10 @@
             transition: background-color 0.3s ease;
         }
         .container button:hover {
-            background-color: #06f569;
+            background-color: #f55a06;
         }
+        
+        
     </style>
 </head>
 <body>
@@ -70,7 +72,7 @@
             
             <button type="submit" onclick="loginUser()">Login</button>
         </form>
-        <a href="signup.html" style="text-align: center; display: block; margin-top: 10px; color: #2cec83;">Don't have an account? sign up</a>
+        <a href="signup.html" style="text-align: center; display: block; margin-top: 10px; color: orange;">Don't have an account? sign up</a>
         
     </div>
     <script>
@@ -81,13 +83,32 @@
                 alert('Please fill in all fields.');
                 return;
             }
-            if(username===localStorage.getItem('username') && password===localStorage.getItem('password')) {
+            if(username===localStorage.getItem(username)&& password===localStorage.getItem(password)) {
                 alert('Login successful!');
                 window.location.href = 'dashboard.html';
             } else {
                 alert('Invalid username or password.');
             }   
+            
+    event.preventDefault();
+    
+
+    const users = localStorage.getItem('users') || '';
+    const entries = users.split(';');
+
+    for (let entry of entries) {
+        const [storedUser, storedPass] = entry.split(':');
+        if (storedUser === username && storedPass === password) {
+            alert('Login successful!');
+            window.location.href = 'dashboard.html';
+            return;
         }
+    }
+
+    alert('Invalid username or password.');
+}
+
+        
     </script>
 </body>
 </html>
