@@ -81,7 +81,12 @@
   padding: 5px;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
 }
-
+#submit{
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: right;
+}
   </style>
 </head>
 <body>
@@ -165,6 +170,9 @@
     <!-- Save Section -->
     <div id="save">
       <button onclick="saveJournal()">Save Journal</button>
+    </div>
+    <div id="submit">
+      <button onclick="submitJournal()">Submit</button>
     </div>
     <div id="journal-status"></div>
   </div>
@@ -254,7 +262,12 @@ function formatText(command) {
     }
     window.onload = loadJournal;
     // loadJournal(); // This line is redundant and can be removed
-    
+    function submitJournal() {
+      let pubCount = localStorage.getItem("publicationCount") || 0;
+      pubCount = parseInt(pubCount) + 1;
+      localStorage.setItem("publicationCount", pubCount);
+      alert("Journal submitted successfully!");
+    }
   </script>
 </body>
 </html>

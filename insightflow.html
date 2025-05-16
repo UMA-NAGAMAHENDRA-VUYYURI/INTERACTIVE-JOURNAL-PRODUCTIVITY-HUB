@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>InsightFlow</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .insight { background: #eef; padding: 10px; margin: 5px 0; border-left: 5px solid #3a7bd5; }
+  </style>
+  <script>
+    function loadInsights() {
+      const publications = parseInt(localStorage.getItem("publicationCount") || 0);
+      document.getElementById("pubCount").innerText = publications;
+
+      const insightList = document.getElementById("insightFlow");
+      insightList.innerHTML = "";
+
+      if (publications >= 1) addInsight("First Submission");
+      if (publications >= 5) addInsight("Prolific Author – 5 Publications");
+      if (publications >= 10) addInsight("Veteran Author – 10 Submissions");
+    }
+
+    function addInsight(text) {
+      const div = document.createElement("div");
+      div.className = "insight";
+      div.innerText = text;
+      document.getElementById("insightFlow").appendChild(div);
+    }
+
+    window.onload = loadInsights;
+  </script>
+</head>
+<body>
+  <h1>Author InsightFlow</h1>
+  <p>Total Submissions: <span id="pubCount">0</span></p>
+  <h2>Insights</h2>
+  <div id="insightFlow"></div>
+  <p><a href="journal.html">Back to Submission</a></p>
+</body>
+</html>
