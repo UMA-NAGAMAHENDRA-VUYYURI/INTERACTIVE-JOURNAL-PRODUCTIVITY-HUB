@@ -12,15 +12,37 @@
   <h2>Latest Journal Entry:</h2>
   <div id="editor" style="border:1px solid #ccc; padding:10px; min-height:100px;"></div>
 
-  <script>
-    window.onload = function loadJournal() {
-      const savedContent = localStorage.getItem("journalEntry");
-      if (savedContent) {
-        document.getElementById("editor").innerHTML = savedContent;
-      } else {
-        document.getElementById("editor").textContent = "No journal entry found.";
+ <script>
+  window.onload = function loadAllJournals() {
+    const container = document.getElementById("editor");
+    container.innerHTML = ""; // ✅ Clear previous content
+
+    const entries = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith("journalEntry_")) {
+        const index = parseInt(key.split("_")[1]);
+        entries.push({ index, content: localStorage.getItem(key) });
       }
-    };
-  </script>
+    }
+
+    // Sort by entry number
+    entries.sort((a, b) => a.index - b.index);
+
+    if (entries.length === 0) {
+      container.textContent = "No journal entries found.";
+    } else {
+      entries.forEach(entry => {
+        const div = document.createElement("div");
+        div.style.border = "1px solid #ddd";
+        div.style.padding = "10px";
+        div.style.marginBottom = "10px";
+        div.innerHTML = `<strong>Entry #${entry.index}:</strong><br>${entry.content}`;
+        container.appendChild(div);
+      });
+    }
+  };
+</script>
+
 </body>
 </html>

@@ -83,9 +83,20 @@
 }
 #submit{
   margin-top: 10px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: right;
+  
+  
+}
+#submit button{
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  
+}
+#submit button:hover{
+  background-color: rgb(255, 89, 0);
+  box-shadow:#333 0px 5px 15px;
 }
   </style>
 </head>
@@ -168,12 +179,12 @@
     </div>
 
     <!-- Save Section -->
-    <div id="save">
-      <button onclick="saveJournal()">Save Journal</button>
+     
+    <div>
+      <span id="save"><button onclick="saveJournal()">Save Journal</button></span>
+     <span id="submit">  <button onclick="submitJournal()">Submit</button></span>
     </div>
-    <div id="submit">
-      <button onclick="submitJournal()">Submit</button>
-    </div>
+    
     <div id="journal-status"></div>
   </div>
   <div id="toolbar">
@@ -263,11 +274,30 @@ function formatText(command) {
     window.onload = loadJournal;
     // loadJournal(); // This line is redundant and can be removed
     function submitJournal() {
-      let pubCount = localStorage.getItem("publicationCount") || 0;
-      pubCount = parseInt(pubCount) + 1;
-      localStorage.setItem("publicationCount", pubCount);
-      alert("Journal submitted successfully!");
-    }
+  const editor = document.getElementById("editor");
+  const text = editor.innerHTML.trim(); // Use innerHTML to preserve formatting
+
+  if (text === "") {
+    alert("Please enter something before submitting.");
+    return;
+  }
+
+  // Get current publication count
+  let pubCount = parseInt(localStorage.getItem("publicationCount") || "0");
+  pubCount += 1;
+
+  // Save with unique key
+  localStorage.setItem(`journalEntry_${pubCount}`, text);
+  localStorage.setItem("publicationCount", pubCount);
+
+  // Clear the editor for next entry
+  editor.innerHTML = "";
+  editor.focus();
+
+  alert("Journal submitted successfully!");
+}
+
+
   </script>
 </body>
 </html>
