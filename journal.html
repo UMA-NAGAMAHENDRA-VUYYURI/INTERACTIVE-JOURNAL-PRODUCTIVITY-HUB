@@ -73,58 +73,49 @@
       font-style: italic;
       color: #333;
     }
+
+    #submit {
+      margin-top: 10px;
+    }
+
+    #submit button {
+      padding: 10px 20px;
+      background-color: orange;
+      color: white;
+      border: none;
+      border-radius: 10px;
+    }
+
+    #submit button:hover {
+      background-color: rgb(255, 89, 0);
+      box-shadow: #333 0px 5px 15px;
+    }
+
     #toolbar {
-  display: none;
-  position: absolute;
-  background: #f8f9fa;
-  border: 1px solid #ccc;
-  padding: 5px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-}
-#submit{
-  margin-top: 10px;
-  
-  
-}
-#submit button{
-  padding: 10px 20px;
-  background-color: orange;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  
-}
-#submit button:hover{
-  background-color: rgb(255, 89, 0);
-  box-shadow:#333 0px 5px 15px;
-}
+      display: none;
+      position: absolute;
+      background: #f8f9fa;
+      border: 1px solid #ccc;
+      padding: 5px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
   </style>
 </head>
 <body>
   <div class="journal">
-    <!-- Toolbar -->
     <div class="toolbar">
-      <!-- Basic Formatting -->
       <button onclick="format('bold')"><b>B</b></button>
       <button onclick="format('italic')"><i>I</i></button>
       <button onclick="format('underline')"><u>U</u></button>
       <button onclick="format('strikeThrough')"><s>S</s></button>
-
-      <!-- Text Alignment -->
       <button onclick="format('justifyLeft')">Left</button>
       <button onclick="format('justifyCenter')">Center</button>
       <button onclick="format('justifyRight')">Right</button>
       <button onclick="format('justifyFull')">Justify</button>
-
-      <!-- Lists -->
       <button onclick="format('insertOrderedList')">OL</button>
       <button onclick="format('insertUnorderedList')">UL</button>
-
-      <!-- Indent / Outdent -->
       <button onclick="format('indent')">Indent</button>
       <button onclick="format('outdent')">Outdent</button>
-
-      <!-- Headings & Paragraphs -->
       <select onchange="format('formatBlock', this.value)">
         <option value="">-- Format --</option>
         <option value="h1">Heading 1</option>
@@ -137,17 +128,14 @@
         <option value="pre">Code</option>
         <option value="blockquote">Blockquote</option>
       </select>
-
-      <!-- Fonts -->
-       <input type="text" list="fontName" placeholder="Select Font" onchange="changeFont(this.value)" />
-    <datalist id="fontName">
+      <input type="text" list="fontName" placeholder="Select Font" onchange="changeFont(this.value)" />
+      <datalist id="fontName">
         <option value="Arial">Arial</option>
         <option value="Courier New">Courier New</option>
         <option value="Georgia">Georgia</option>
         <option value="Times New Roman">Times New Roman</option>
         <option value="Verdana">Verdana</option>
-    </datalist>
-      <!-- Font Size -->
+      </datalist>
       <select onchange="format('fontSize', this.value)">
         <option value="">-- Size --</option>
         <option value="1">Very Small</option>
@@ -158,67 +146,38 @@
         <option value="6">Huge</option>
         <option value="7">Massive</option>
       </select>
-
-      <!-- Colors -->
       <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
       <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
-
-      <!-- Insert Elements -->
       <button onclick="insertLink()">🔗 Link</button>
       <button onclick="insertImage()">🖼️ Image</button>
       <button onclick="insertDate()">📅 Date</button>
       <button onclick="insertHorizontalRule()">― HR</button>
-
-      <!-- Clear Formatting -->
       <button onclick="format('removeFormat')">❌ Clear</button>
     </div>
 
-    <!-- Editor -->
-    <div id="editor" contenteditable="true">
-      Start journaling...
-    </div>
+    <div id="editor" contenteditable="true">Start journaling...</div>
 
-    <!-- Save Section -->
-     
     <div>
       <span id="save"><button onclick="saveJournal()">Save Journal</button></span>
-     <span id="submit">  <button onclick="submitJournal()">Submit</button></span>
+      <span id="submit"><button onclick="submitJournal()">Submit</button></span>
     </div>
-    
+
     <div id="journal-status"></div>
   </div>
-  <div id="toolbar">
-  <button onclick="formatText('bold')">Bold</button>
-  <button onclick="formatText('italic')">Italic</button>
-  <button onclick="formatText('underline')">Underline</button>
-  <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
-      <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
-      <button onclick="format('insertOrderedList')">OL</button>
-      <button onclick="format('insertUnorderedList')">UL</button>
-  <input type="text" list="fontName" placeholder="Select Font" onchange="changeFont(this.value)" />
-    <datalist id="fontName">
-        <option value="Arial">Arial</option>
-        <option value="Courier New">Courier New</option>
-        <option value="Georgia">Georgia</option>
-        <option value="Times New Roman">Times New Roman</option>
-        <option value="Verdana">Verdana</option>
-    </datalist>
 
-</div>
-
+  <div id="toolbar"></div>
 
   <script>
     function format(command, value = null) {
-      if (document.execCommand) {
-        document.execCommand(command, false, value);
+      document.execCommand(command, false, value);
+    }
+
+    function changeFont(fontName) {
+      if (fontName) {
+        document.getElementById("editor").style.fontFamily = fontName;
       }
     }
-    function changeFont(fontName) {
-            if (fontName) {
-                document.getElementById("editor").style.fontFamily = fontName;
-            }
-        }
-   
+
     function insertLink() {
       const url = prompt("Enter the URL:");
       if (url) format('createLink', url);
@@ -237,67 +196,67 @@
     function insertHorizontalRule() {
       format('insertHorizontalRule');
     }
+
     document.addEventListener("mouseup", () => {
-  let selection = window.getSelection();
-  if (!selection.rangeCount) return;
+      let selection = window.getSelection();
+      if (!selection.rangeCount) return;
 
-  let range = selection.getRangeAt(0);
-  let rect = range.getBoundingClientRect();
-  let toolbar = document.getElementById("toolbar");
+      let range = selection.getRangeAt(0);
+      let rect = range.getBoundingClientRect();
+      let toolbar = document.getElementById("toolbar");
 
-  if (selection.toString().trim()) {
-    toolbar.style.display = "block";
-    toolbar.style.top = `${rect.top + window.scrollY - 40}px`;
-    toolbar.style.left = `${rect.left + window.scrollX}px`;
-  } else {
-    toolbar.style.display = "none";
-  }
-});
-
-function formatText(command) {
-  document.execCommand(command, false, null);
-}
-
+      if (selection.toString().trim()) {
+        toolbar.style.display = "block";
+        toolbar.style.top = `${rect.top + window.scrollY - 40}px`;
+        toolbar.style.left = `${rect.left + window.scrollX}px`;
+      } else {
+        toolbar.style.display = "none";
+      }
+    });
 
     function saveJournal() {
       const content = document.getElementById("editor").innerHTML;
       localStorage.setItem("journalEntry", content);
       document.getElementById("journal-status").textContent = "Journal saved!";
-      alert("Your journal entry has been saved successfully!"); 
+      alert("Your journal entry has been saved successfully!");
     }
+
+    function submitJournal() {
+      const editor = document.getElementById("editor");
+      const text = editor.innerHTML.trim();
+
+      if (text === "" || text === "Start journaling...") {
+        alert("Please enter something before submitting.");
+        return;
+      }
+
+      let pubCount = parseInt(localStorage.getItem("publicationCount") || "0");
+      pubCount += 1;
+
+      localStorage.setItem(`journalEntry_${pubCount}`, text);
+      localStorage.setItem("publicationCount", pubCount);
+
+      // Clear saved draft
+      localStorage.removeItem("journalEntry");
+
+      // Reset editor
+      editor.innerHTML = "Start journaling...";
+      document.getElementById("journal-status").textContent = "";
+
+      alert("Journal submitted successfully!");
+    }
+
     function loadJournal() {
       const savedContent = localStorage.getItem("journalEntry");
-      if (savedContent) {
+      const pubCount = parseInt(localStorage.getItem("publicationCount") || "0");
+      const lastSubmitted = localStorage.getItem(`journalEntry_${pubCount}`);
+
+      if (savedContent && savedContent !== lastSubmitted) {
         document.getElementById("editor").innerHTML = savedContent;
       }
     }
+
     window.onload = loadJournal;
-    // loadJournal(); // This line is redundant and can be removed
-    function submitJournal() {
-  const editor = document.getElementById("editor");
-  const text = editor.innerHTML.trim(); // Use innerHTML to preserve formatting
-
-  if (text === "") {
-    alert("Please enter something before submitting.");
-    return;
-  }
-
-  // Get current publication count
-  let pubCount = parseInt(localStorage.getItem("publicationCount") || "0");
-  pubCount += 1;
-
-  // Save with unique key
-  localStorage.setItem(`journalEntry_${pubCount}`, text);
-  localStorage.setItem("publicationCount", pubCount);
-
-  // Clear the editor for next entry
-  editor.innerHTML = "";
-  editor.focus();
-
-  alert("Journal submitted successfully!");
-}
-
-
   </script>
 </body>
 </html>
