@@ -1,107 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>InsightFlow</title>
   <style>
-    body {
-  font-family: Arial, sans-serif;
-  background-color: #f9fafc;
-  margin: 0;
-  padding: 20px;
-  color: #333;
-}
-
-h1 {
-  color: #f5935a;
-  margin-bottom: 10px;
-}
-
-h2 {
-  color: orange;
-  margin-top: 30px;
-}
-
-p {
-  font-size: 16px;
-}
-
-a {
-  color: orange;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.insight {
-  background: #eef5ff;
-  padding: 12px 16px;
-  margin: 10px 0;
-  border-left: 5px solid orange;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(172, 242, 93, 0.1);
-  transition: background 0.3s ease;
-}
-
-.insight:hover {
-  background: #eec19a;
-}
-
-#pubCount {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    body { font-family: Arial, sans-serif; background-color: #f9fafc; margin: 0; padding: 20px; color: #333; }
+    h1 { color: #f5935a; margin-bottom: 10px; }
+    h2 { color: orange; margin-top: 30px; }
+    p { font-size: 16px; }
+    a { color: orange; text-decoration: none; font-weight: bold; }
+    a:hover { text-decoration: underline; }
+    .insight {
+      background: #eef5ff;
+      padding: 12px 16px;
+      margin: 10px 0;
+      border-left: 5px solid orange;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(172, 242, 93, 0.1);
+      transition: background 0.3s ease;
+    }
+    .insight:hover { background: #eec19a; }
+    #pubCount { font-weight: bold; color: #2c3e50; }
   </style>
-  <script>
-    function loadInsights() {
-      const publications = parseInt(localStorage.getItem("publicationCount") || 0);
-      document.getElementById("pubCount").innerText = publications;
-
-      const insightList = document.getElementById("insightFlow");
-      insightList.innerHTML = "";
-
-      if (publications >= 1) addInsight("First Submission");
-      if (publications >= 5) addInsight("Prolific Author - 5 Publications");
-      if (publications >= 10) addInsight("Veteran Author - 10 Submissions");
-    }
-
-    function addInsight(text) {
-      const div = document.createElement("div");
-      div.className = "insight";
-      div.innerText = text;
-      document.getElementById("insightFlow").appendChild(div);
-    }
-
-    window.onload = loadInsights;
-  </script>
 </head>
 <body>
   <h1>Author InsightFlow</h1>
   <p>
-    <strong>Submissions Today:</strong> <span id="todayCount">0</span><br>
-    <strong>This Week:</strong> <span id="weekCount">0</span><br>
-    <strong>This Month:</strong> <span id="monthCount">0</span><br>
-    <strong>This Year:</strong> <span id="yearCount">0</span><br>
+    <strong>Submissions Today:</strong> <span id="todayCount">0</span><br />
+    <strong>This Week:</strong> <span id="weekCount">0</span><br />
+    <strong>This Month:</strong> <span id="monthCount">0</span><br />
+    <strong>This Year:</strong> <span id="yearCount">0</span><br />
     <strong>Total Submissions:</strong> <span id="pubCount">0</span>
   </p>
+
+  <div id="insightFlow"></div>
+  <p><a href="journal.html">Back to Submission</a></p>
+
   <script>
     function getSubmissionStats() {
-      // Assume submissionDates is an array of ISO date strings in localStorage
       const dates = JSON.parse(localStorage.getItem("submissionDates") || "[]");
       const now = new Date();
-      let today = 0, week = 0, month = 0, year = 0;
+      let today = 0,
+        week = 0,
+        month = 0,
+        year = 0;
 
-      // Get start of today, week, month, year
       const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       const startOfWeek = new Date(startOfToday);
       startOfWeek.setDate(startOfToday.getDate() - startOfToday.getDay());
       const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
       const startOfYear = new Date(now.getFullYear(), 0, 1);
 
-      dates.forEach(dateStr => {
+      dates.forEach((dateStr) => {
         const d = new Date(dateStr);
         if (d >= startOfToday) today++;
         if (d >= startOfWeek) week++;
@@ -112,15 +62,14 @@ a:hover {
       return { today, week, month, year, total: dates.length };
     }
 
+    function addInsight(text) {
+      const div = document.createElement("div");
+      div.className = "insight";
+      div.innerText = text;
+      document.getElementById("insightFlow").appendChild(div);
+    }
+
     function loadInsights() {
-      const publications = parseInt(localStorage.getItem("publicationCount") || 0);
-      document.getElementById("pubCount").innerText = publications;
-
-      document.getElementById("acceptedCount").innerText = localStorage.getItem("acceptedCount") || 0;
-      document.getElementById("rejectedCount").innerText = localStorage.getItem("rejectedCount") || 0;
-      document.getElementById("pendingCount").innerText = localStorage.getItem("pendingCount") || 0;
-
-      // Submission stats
       const stats = getSubmissionStats();
       document.getElementById("todayCount").innerText = stats.today;
       document.getElementById("weekCount").innerText = stats.week;
@@ -138,7 +87,5 @@ a:hover {
 
     window.onload = loadInsights;
   </script>
-  <div id="insightFlow"></div>
-  <p><a href="journal.html">Back to Submission</a></p>
 </body>
 </html>

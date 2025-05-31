@@ -33,12 +33,24 @@
       container.textContent = "No journal entries found.";
     } else {
       entries.forEach(entry => {
-        const div = document.createElement("div");
-        div.style.border = "1px solid #ddd";
-        div.style.padding = "10px";
-        div.style.marginBottom = "10px";
-        div.innerHTML = `<strong>Entry #${entry.index}:</strong><br>${entry.content}`;
-        container.appendChild(div);
+      const div = document.createElement("div");
+      div.style.border = "1px solid #ddd";
+      div.style.padding = "10px";
+      div.style.marginBottom = "10px";
+      div.innerHTML = `<strong>Entry #${entry.index}:</strong><br>${entry.content}`;
+
+      // Create delete button
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.style.alignContent="right";
+      deleteBtn.style.marginLeft = "10px";
+      deleteBtn.addEventListener("click", function() {
+        localStorage.removeItem(`journalEntry_${entry.index}`);
+        div.remove(); // Remove the entry from the DOM
+      });
+
+      div.appendChild(deleteBtn);
+      container.appendChild(div);
       });
     }
   };

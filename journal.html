@@ -221,30 +221,39 @@
       alert("Your journal entry has been saved successfully!");
     }
 
-    function submitJournal() {
-      const editor = document.getElementById("editor");
-      const text = editor.innerHTML.trim();
+   function submitJournal() {
+  const editor = document.getElementById("editor");
+  const text = editor.innerHTML.trim();
 
-      if (text === "" || text === "Start journaling...") {
-        alert("Please enter something before submitting.");
-        return;
-      }
+  if (text === "" || text === "Start journaling...") {
+    alert("Please enter something before submitting.");
+    return;
+  }
 
-      let pubCount = parseInt(localStorage.getItem("publicationCount") || "0");
-      pubCount += 1;
+  // Get the current submission dates array or initialize it
+  let submissionDates = JSON.parse(localStorage.getItem("submissionDates") || "[]");
 
-      localStorage.setItem(`journalEntry_${pubCount}`, text);
-      localStorage.setItem("publicationCount", pubCount);
+  // Add the current date-time ISO string
+  submissionDates.push(new Date().toISOString());
 
-      // Clear saved draft
-      localStorage.removeItem("journalEntry");
+  // Save updated array back to localStorage
+  localStorage.setItem("submissionDates", JSON.stringify(submissionDates));
 
-      // Reset editor
-      editor.innerHTML = "Start journaling...";
-      document.getElementById("journal-status").textContent = "";
+  // Update publicationCount based on submissionDates length
+  localStorage.setItem("publicationCount", submissionDates.length.toString());
 
-      alert("Journal submitted successfully!");
-    }
+  // Save the journal text under a key reflecting current count
+  localStorage.setItem(`journalEntry_${submissionDates.length}`, text);
+
+  // Clear saved draft
+  localStorage.removeItem("journalEntry");
+
+  // Reset editor content
+  editor.innerHTML = "Start journaling...";
+  document.getElementById("journal-status").textContent = "";
+
+  alert("Journal submitted successfully!");
+}
 
     function loadJournal() {
       const savedContent = localStorage.getItem("journalEntry");
