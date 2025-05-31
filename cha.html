@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <title> challenges </title>
+    <style>
+      body {
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 20px;
+        color:blue;
+      }
+      .challenges {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+      .challenge1, .challenge2, .challenge3, .challenge4, .challenge5, .challenge6 {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px;
+        width: 50%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      p {
+        font-size: 15px;
+      }
+      button{
+        background-color:rgb(47, 47, 177);
+        color: rgb(0, 0, 0);
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        float:right;
+      }
+      button:hover {
+        padding :12px 22px;
+      }
+    </style>
+
+
+    <script>
+
+
+      function updateStatus(challengeNumber, status) {
+  const statusElement = document.querySelector(`.status${challengeNumber}`);
+  if (statusElement) {
+    statusElement.textContent = status;
+    statusElement.style.color = status === "Completed" ? "green" : "red";
+  }
+}
+
+function updateStreak() {
+  const today = new Date().toDateString();
+  const lastVisit = localStorage.getItem("lastVisitDate");
+  let streak = parseInt(localStorage.getItem("journalStreak") || "0", 10);
+
+  if (lastVisit === today) {
+    // Already counted today, do nothing
+  } else if (lastVisit && (new Date(today) - new Date(lastVisit) === 86400000)) {   // 1 day in milliseconds
+    // Consecutive day
+    streak += 1;
+  } else {
+    // Not consecutive, reset streak
+    streak = 1;
+  }
+
+  localStorage.setItem("lastVisitDate", today);
+  localStorage.setItem("journalStreak", streak);
+
+  if(streak >= 7) {
+    updateStatus(1, "Completed");
+  } else {
+    updateStatus(1, "Not Completed");
+  }
+
+    if(streak >= 30) {
+        updateStatus(4, "Completed");
+    } else {
+        updateStatus(4, "Not Completed");
+    }
+
+    
+  // Display streak on the page
+  const streakDiv = document.getElementById("streak");
+  if (streakDiv) {
+    document.getElementById("streak").textContent = "Your current streak: " + streak + " day(s)";
+    document.getElementById("monthStreak").textContent = "Your current month streak: " + streak + " day(s)";
+  }
+}
+
+// Call this on page load
+window.onload = function() {
+  updateStreak();
+
+
+  var savedGoal = localStorage.getItem("userGoal");
+  if (savedGoal) {
+    document.getElementById("userGoalDisplay").textContent = "Your goal: " + savedGoal;
+    updateStatus(2, "Completed");
+  }
+}
+
+function setgoal() {
+  var goal = prompt("Enter your goal:");
+  if (goal) {
+    alert("Your goal is: " + goal);
+    localStorage.setItem("userGoal", goal); // Save goal
+    document.getElementById("userGoalDisplay").textContent = "Your goal: " + goal; // Show on page
+    updateStatus(2, "Completed");
+  } else {
+    alert("Please enter a valid goal.");
+  }
+}
+
+function updateGoalStatus() {
+  var goal = localStorage.getItem("userGoal");
+  if (goal) {
+    var Gstatus = prompt("Enter the status of your goal (Completed/Not Completed):");
+    if (Gstatus) {
+      alert("Your goal status is: " + Gstatus);
+      updateStatus(3, Gstatus);
+    } else {
+      alert("Please enter a valid status.");
+    }
+  } else {
+    alert("Please set a goal first.");
+  }
+}
+
+
+
+function summarise() {
+  window.open("journal.html", "_blank");
+  updateStatus(5, "Completed");
+}
+
+
+
+function copyWebsiteLink() {
+  var link = window.location.origin + window.location.pathname;
+  var websiteLinkDiv = document.getElementById("websiteLink");
+  websiteLinkDiv.textContent = link;
+  navigator.clipboard.writeText(link)
+    .then(() => {
+      websiteLinkDiv.textContent = "Link copied to clipboard: ";
+      updateStatus(6, "Completed");
+    })
+    .catch(err => {
+      websiteLinkDiv.textContent = "Failed to copy link.";
+    });
+}
+      
+    </script>
+  </head>
+  <body>
+    <h1> challenges </h1>
+
+    <div class="challenges">
+        <div id="userGoalDisplay" style="margin:10px 0; color: #0078d4;"></div>
+
+      <div class="challenge1">
+        <p>maintain a 7 day streak of writing journal</p><br>
+        <p id="streak"></p>
+        <span class="status1"></span>
+      </div>
+
+      <div class="challenge2">
+        <p>set a goal</p>
+         <button onclick="setgoal()">set goal</button><br>
+        <span class="status2"></span>
+      </div>
+
+      <div class="challenge3">
+        <p>achieve your goal</p>
+        <button onclick="updateGoalStatus()">update the status of my  goal</button>
+        <br><span class="status3"></span>
+      </div>
+
+      <div class="challenge4">
+        <p>maintain a month streak of writing journal</p>
+        <p id="monthStreak"></p>
+        <span class="status4"></span>
+      </div>
+
+      <div class="challenge5">
+        <p>Summarize your week and lessons learned every Sunday for a month</p>
+        <button oncliclk="summarise()">summarise</button>
+        <span class="status5"></span>
+      </div>
+
+      <div class="challenge6">
+        <p>invite your friend to write journal</p>
+        <button onclick="copyWebsiteLink()">Copy Link</button><br>
+        <span class="status6"></span>
+        <div id="websiteLink" style="margin-top:8px; color:blue;"></div>
+      </div>
+
+  </body>
+</html>

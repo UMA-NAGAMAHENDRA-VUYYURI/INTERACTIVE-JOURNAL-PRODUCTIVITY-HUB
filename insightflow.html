@@ -64,8 +64,8 @@ a:hover {
       insightList.innerHTML = "";
 
       if (publications >= 1) addInsight("First Submission");
-      if (publications >= 5) addInsight("Prolific Author – 5 Publications");
-      if (publications >= 10) addInsight("Veteran Author – 10 Submissions");
+      if (publications >= 5) addInsight("Prolific Author - 5 Publications");
+      if (publications >= 10) addInsight("Veteran Author - 10 Submissions");
     }
 
     function addInsight(text) {
@@ -80,8 +80,64 @@ a:hover {
 </head>
 <body>
   <h1>Author InsightFlow</h1>
-  <p>Total Submissions: <span id="pubCount">0</span></p>
-  <h2>Insights</h2>
+  <p>
+    <strong>Submissions Today:</strong> <span id="todayCount">0</span><br>
+    <strong>This Week:</strong> <span id="weekCount">0</span><br>
+    <strong>This Month:</strong> <span id="monthCount">0</span><br>
+    <strong>This Year:</strong> <span id="yearCount">0</span><br>
+    <strong>Total Submissions:</strong> <span id="pubCount">0</span>
+  </p>
+  <script>
+    function getSubmissionStats() {
+      // Assume submissionDates is an array of ISO date strings in localStorage
+      const dates = JSON.parse(localStorage.getItem("submissionDates") || "[]");
+      const now = new Date();
+      let today = 0, week = 0, month = 0, year = 0;
+
+      // Get start of today, week, month, year
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const startOfWeek = new Date(startOfToday);
+      startOfWeek.setDate(startOfToday.getDate() - startOfToday.getDay());
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      const startOfYear = new Date(now.getFullYear(), 0, 1);
+
+      dates.forEach(dateStr => {
+        const d = new Date(dateStr);
+        if (d >= startOfToday) today++;
+        if (d >= startOfWeek) week++;
+        if (d >= startOfMonth) month++;
+        if (d >= startOfYear) year++;
+      });
+
+      return { today, week, month, year, total: dates.length };
+    }
+
+    function loadInsights() {
+      const publications = parseInt(localStorage.getItem("publicationCount") || 0);
+      document.getElementById("pubCount").innerText = publications;
+
+      document.getElementById("acceptedCount").innerText = localStorage.getItem("acceptedCount") || 0;
+      document.getElementById("rejectedCount").innerText = localStorage.getItem("rejectedCount") || 0;
+      document.getElementById("pendingCount").innerText = localStorage.getItem("pendingCount") || 0;
+
+      // Submission stats
+      const stats = getSubmissionStats();
+      document.getElementById("todayCount").innerText = stats.today;
+      document.getElementById("weekCount").innerText = stats.week;
+      document.getElementById("monthCount").innerText = stats.month;
+      document.getElementById("yearCount").innerText = stats.year;
+      document.getElementById("pubCount").innerText = stats.total;
+
+      const insightList = document.getElementById("insightFlow");
+      insightList.innerHTML = "";
+
+      if (stats.total >= 1) addInsight("First Submission");
+      if (stats.total >= 5) addInsight("Prolific Author - 5 Publications");
+      if (stats.total >= 10) addInsight("Veteran Author - 10 Submissions");
+    }
+
+    window.onload = loadInsights;
+  </script>
   <div id="insightFlow"></div>
   <p><a href="journal.html">Back to Submission</a></p>
 </body>
