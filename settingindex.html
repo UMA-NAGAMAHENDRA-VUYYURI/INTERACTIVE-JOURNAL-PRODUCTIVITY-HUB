@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | Interactive Journal & Productivity Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="settingsstyles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Settings</h3>
+            </div>
+            <ul class="sidebar-menu" id="settings-menu">
+                <!-- Menu items will be dynamically generated -->
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 id="settings-title">Settings</h1>
+                <div class="user-profile">
+                    <label class="profile-upload-label">
+                        <input type="file" id="profile-upload" class="profile-upload" accept="image/*">
+                        <img id="user-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Profile">
+                        <div class="profile-upload-overlay">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Settings cards will be dynamically generated here -->
+            <div id="settings-content"></div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="settingsscript.js"></script>
+</body>
+</html>
