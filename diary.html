@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JournalHub</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    .journal {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .toolbar button,
+    .toolbar select,
+    .toolbar input[type="color"] {
+      padding: 5px 10px;
+      background-color: #ffffff;
+      color: black;
+      border: 1px solid black;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .toolbar input[type="color"] {
+      padding: 0;
+      width: 30px;
+      height: 30px;
+    }
+    #editor {
+      flex: 1;
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 300px;
+      overflow-y: auto;
+    }
+    #save button, #submit button {
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    #save button {
+      background-color: green;
+    }
+    #submit button {
+      background-color: orange;
+    }
+    #submit button:hover {
+      background-color: rgb(255, 89, 0);
+      box-shadow: #333 0px 5px 15px;
+    }
+    #diary-status {
+      margin-top: 10px;
+      font-style: italic;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="journal">
+    <div class="toolbar">
+      <button onclick="format('bold')"><b>B</b></button>
+      <button onclick="format('italic')"><i>I</i></button>
+      <button onclick="format('underline')"><u>U</u></button>
+      <button onclick="format('strikeThrough')"><s>S</s></button>
+      <button onclick="format('justifyLeft')">Left</button>
+      <button onclick="format('justifyCenter')">Center</button>
+      <button onclick="format('justifyRight')">Right</button>
+      <button onclick="format('justifyFull')">Justify</button>
+      <button onclick="format('insertOrderedList')">OL</button>
+      <button onclick="format('insertUnorderedList')">UL</button>
+      <button onclick="format('indent')">Indent</button>
+      <button onclick="format('outdent')">Outdent</button>
+      <select onchange="format('formatBlock', this.value)">
+        <option value="">-- Format --</option>
+        <option value="h1">Heading 1</option>
+        <option value="h2">Heading 2</option>
+        <option value="h3">Heading 3</option>
+        <option value="p">Paragraph</option>
+        <option value="blockquote">Blockquote</option>
+      </select>
+      <input type="text" list="fontName" placeholder="Select Font" onchange="changeFont(this.value)" />
+      <datalist id="fontName">
+        <option value="Arial">Arial</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Verdana">Verdana</option>
+      </datalist>
+      <select onchange="format('fontSize', this.value)">
+        <option value="">-- Size --</option>
+        <option value="1">Very Small</option>
+        <option value="2">Small</option>
+        <option value="3">Normal</option>
+        <option value="4">Large</option>
+        <option value="5">Very Large</option>
+        <option value="6">Huge</option>
+        <option value="7">Massive</option>
+      </select>
+      <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
+      <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
+      <button onclick="insertLink()">🔗 Link</button>
+      <button onclick="insertImage()">🖼️ Image</button>
+      <button onclick="insertHorizontalRule()">― HR</button>
+      <button onclick="format('removeFormat')">❌ Clear</button>
+    </div>
+
+    <div id="editor" contenteditable="true"></div>
+
+    <div>
+      <span id="save"><button onclick="saveJournal()">Save Journal</button></span>
+      <span id="submit"><button onclick="submitJournal()">Submit</button></span>
+    </div>
+
+    <div id="diary-status"></div>
+  </div>
+
+<script>
+    function format(command, value = null) {
+        document.execCommand(command, false, value);
+        document.getElementById("editor").focus();
+    }
+
+    function changeFont(fontName) {
+        if (fontName) {
+            format('fontName', fontName);
+        }
+        document.getElementById("editor").focus();
+    }
+
+    function insertLink() {
+        const url = prompt("Enter the URL:");
+        if (url) format('createLink', url);
+        document.getElementById("editor").focus();
+    }
+
+    function insertImage() {
+        const url = prompt("Enter image URL:");
+        if (url) format('insertImage', url);
+        document.getElementById("editor").focus();
+    }
+
+    function insertHorizontalRule() {
+        format('insertHorizontalRule');
+        document.getElementById("editor").focus();
+    }
+
+    function saveJournal() {
+        const content = document.getElementById("editor").innerHTML;
+        const dateKey = getTodayKey();
+        localStorage.setItem(`draft_${dateKey}`, content);
+        document.getElementById("diary-status").textContent = "Draft saved!";
+        setTimeout(() => {
+            document.getElementById("diary-status").textContent = "";
+        }, 2000);
+    }
+
+    function submitJournal() {
+        const editor = document.getElementById("editor");
+        const content = editor.innerHTML.trim();
+
+        // Remove empty tags and check for real content
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = content.replace(/<br\s*\/?>/gi, "").replace(/&nbsp;/gi, "");
+        if (!tempDiv.textContent.trim()) {
+            alert("Please write something before submitting.");
+            return;
+        }
+
+        const dateKey = getTodayKey();
+
+        // Save permanently
+        localStorage.setItem(`entry_${dateKey}`, content);
+
+        // Remove draft
+        localStorage.removeItem(`draft_${dateKey}`);
+
+        // Reset editor
+        editor.innerHTML = "";
+        document.getElementById("diary-status").textContent = "";
+
+        alert("diary submitted for today!");
+        loadEntry();
+    }
+
+    function getTodayKey() {
+        const now = new Date();
+        return now.toISOString().split("T")[0]; // YYYY-MM-DD
+    }
+
+    function loadEntry() {
+        const dateKey = getTodayKey();
+        const savedDraft = localStorage.getItem(`draft_${dateKey}`);
+        const submittedEntry = localStorage.getItem(`entry_${dateKey}`);
+
+        const editor = document.getElementById("editor");
+
+        if (savedDraft && savedDraft !== submittedEntry) {
+            editor.innerHTML = savedDraft;
+            document.getElementById("diary-status").textContent = "Draft loaded.";
+        } else if (submittedEntry) {
+            editor.innerHTML = submittedEntry;
+            document.getElementById("diary-status").textContent = "Submitted entry loaded.";
+        } else {
+            // New day: insert current date/time
+            const now = new Date();
+            const formatted = now.toLocaleString();
+            editor.innerHTML = `<p><strong>${formatted}</strong></p><p><br/></p>`;
+            document.getElementById("diary-status").textContent = "";
+        }
+    }
+
+    // Optional: Add placeholder text when editor is empty
+    document.addEventListener("DOMContentLoaded", function () {
+        const editor = document.getElementById("editor");
+        loadEntry();
+        editor.addEventListener("focus", function () {
+            if (editor.textContent.trim() === "") {
+                editor.innerHTML = "";
+            }
+        });
+
+        editor.addEventListener("blur", function () {
+            if (editor.textContent.trim() === "") {
+                editor.innerHTML = "<p><br/></p>";
+            }
+        });
+    });
+</script>
+</body>
+</html>

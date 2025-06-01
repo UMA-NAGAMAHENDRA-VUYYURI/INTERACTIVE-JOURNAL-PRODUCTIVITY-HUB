@@ -15,46 +15,76 @@
  <script>
   window.onload = function loadAllJournals() {
     const container = document.getElementById("display");
-    container.innerHTML = ""; // ✅ Clear previous content
+    container.innerHTML = "";
 
-    const entries = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key.startsWith("journalEntry_")) {
-        const index = parseInt(key.split("_")[1]);
-        entries.push({ index, content: localStorage.getItem(key) });
-      }
-    }
+    const submissionDates = JSON.parse(localStorage.getItem("submissionDates") || "[]");
 
-    // Sort by entry number
-    entries.sort((a, b) => a.index - b.index);
-
-    if (entries.length === 0) {
+    if (submissionDates.length === 0) {
       container.textContent = "No journal entries found.";
-    } else {
-      entries.forEach(entry => {
-      const div = document.createElement("div");
-      div.style.border = "1px solid #ddd";
-      div.style.padding = "10px";
-      div.style.marginBottom = "10px";
-      div.innerHTML = `<strong>Entry #${entry.index}:</strong><br>${entry.content}`;
-
-      // Create delete button
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "Delete";
-      deleteBtn.style.alignContent="right";
-      deleteBtn.style.marginLeft = "10px";
-      deleteBtn.addEventListener("click", function() {
-        localStorage.removeItem(`journalEntry_${entry.index}`);
-        div.remove(); // Remove the entry from the DOM
-      });
-
-      div.appendChild(deleteBtn);
-      container.appendChild(div);
-      });
+      return;
     }
+
+    submissionDates.forEach((date, i) => {
+      const key = `journalEntry_${i + 1}`;
+      const content = localStorage.getItem(key);
+
+      if (content) {
+        const div = document.createElement("div");
+        div.style.border = "1px solid #ddd";
+        div.style.padding = "10px";
+        div.style.marginBottom = "10px";
+        div.innerHTML = `<strong>Entry #${i + 1} (Submitted on ${new Date(date).toLocaleString()}):</strong><br>${content}`;
+
+        // Delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.style.marginLeft = "10px";
+        deleteBtn.addEventListener("click", function () {
+          localStorage.removeItem(key);
+
+          // Remove the date at the same index
+          submissionDates.splice(i, 1);
+          localStorage.setItem("submissionDates", JSON.stringify(submissionDates));
+          localStorage.setItem("publicationCount", submissionDates.length.toString());
+
+          div.remove(); // Remove from DOM
+          location.reload(); // Reload to reindex entries correctly
+        });
+
+        // Edit button
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edit";
+        editBtn.style.marginLeft = "10px";
+        editBtn.addEventListener("click", function () {
+          const textarea = document.createElement("textarea");
+          textarea.value = content;
+          textarea.style.width = "100%";
+          textarea.style.height = "250px";
+
+          const saveBtn = document.createElement("button");
+          saveBtn.textContent = "Save";
+          saveBtn.style.marginLeft = "10px";
+
+          div.innerHTML = `<strong>Entry #${i + 1} (Submitted on ${new Date(date).toLocaleString()}):</strong><br>`;
+          div.appendChild(textarea);
+          div.appendChild(saveBtn);
+
+          saveBtn.addEventListener("click", function () {
+            const newContent = textarea.value.trim();
+            if (newContent) {
+              localStorage.setItem(key, newContent);
+              div.innerHTML = `<strong>Entry #${i + 1} (Submitted on ${new Date(date).toLocaleString()}):</strong><br>${newContent}`;
+              div.appendChild(editBtn);
+              div.appendChild(deleteBtn);
+            }
+          });
+        });
+        div.appendChild(editBtn);
+        div.appendChild(deleteBtn);
+        container.appendChild(div);
+      }
+    });
   };
 </script>
-
 </body>
 </html>
