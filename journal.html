@@ -230,56 +230,64 @@
     return;
   }
 
-  // Save submission timestamp
+  // Get the current submission dates array or initialize it
   let submissionDates = JSON.parse(localStorage.getItem("submissionDates") || "[]");
-  const timestamp = new Date().toISOString();
-  submissionDates.push(timestamp);
+
+  // Add the current date-time ISO string
+  submissionDates.push(new Date().toISOString());
+
+  // Save updated array back to localStorage
   localStorage.setItem("submissionDates", JSON.stringify(submissionDates));
 
-  // Update publication count
+  // Update publicationCount based on submissionDates length
   localStorage.setItem("publicationCount", submissionDates.length.toString());
 
-  // Save general journal entry with running count
+  // Save the journal text under a key reflecting current count
   localStorage.setItem(`journalEntry_${submissionDates.length}`, text);
 
-  // Challenge-specific logic
-  const challengeId = parseInt(localStorage.getItem("currentChallengeId"), 10);
-  if (!challengeId) {
-    alert("No active challenge found.");
-    return;
-  }
-
-  let challenges = JSON.parse(localStorage.getItem("challenges") || "[]");
-  let challenge = challenges.find(c => c.id === challengeId);
-  if (!challenge) {
-    alert("Challenge not found.");
-    return;
-  }
-
-  if (challenge.completed < challenge.total) {
-    challenge.completed += 1;
-  }
-
-  // Save updated challenge progress
-  localStorage.setItem("challenges", JSON.stringify(challenges));
-
-  // Save challenge-specific journal entry
-  const challengeKey = `journal_${challengeId}_${challenge.completed}_${timestamp}`;
-  localStorage.setItem(challengeKey, text);
-
-  // Cleanup
+  // Clear saved draft
   localStorage.removeItem("journalEntry");
-  localStorage.removeItem("currentChallengeId");
+
+  // Reset editor content
   editor.innerHTML = "Start journaling...";
-  const status = document.getElementById("journal-status");
-  if (status) status.textContent = "";
+  document.getElementById("journal-status").textContent = "";
 
-  alert(`Journal submitted for "${challenge.title}"! Progress: ${challenge.completed}/${challenge.total}`);
-  window.location.href = "challenge.html";
-}
+  alert("Journal submitted successfully!");
+  const challengeId = parseInt(localStorage.getItem("currentChallengeId"), 10);
+    if (!challengeId) {
+      alert("No active challenge found.");
+      return;
+    }
 
+    let challenges = JSON.parse(localStorage.getItem("challenges") || "[]");
+    let challenge = challenges.find(c => c.id === challengeId);
 
+    if (!challenge) {
+      alert("Challenge not found.");
+      return;
+    }
 
+    // Prevent over-completion
+    if (challenge.completed < challenge.total) {
+      challenge.completed += 1;
+    }
+
+    // Save back to localStorage
+    localStorage.setItem("challenges", JSON.stringify(challenges));
+
+    // Save full journal entry
+    const timestamp = new Date().toISOString();
+    const key = `journal_${challengeId}_${challenge.completed}_${timestamp}`;
+    localStorage.setItem(key, text);
+
+    // Cleanup
+    editor.innerHTML = "Start journaling...";
+    localStorage.removeItem("journalEntry");
+    localStorage.removeItem("currentChallengeId");
+
+    alert(`Journal submitted for "${challenge.title}"! Progress: ${challenge.completed}/${challenge.total}`);
+    window.location.href = "challenges.html";
+  }
     function loadJournal() {
       const savedContent = localStorage.getItem("journalEntry");
       const pubCount = parseInt(localStorage.getItem("publicationCount") || "0");
