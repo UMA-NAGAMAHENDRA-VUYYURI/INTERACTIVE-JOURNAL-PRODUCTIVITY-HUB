@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fully Functional Mood Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mood-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .mood-btn {
+            font-size: 24px;
+            padding: 10px;
+            border: none;
+            background: white;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.2);
+        }
+
+        #current-mood {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #mood-history {
+            list-style: none;
+            padding: 0;
+        }
+
+        #mood-history li {
+            background: #fff;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #clear-history {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        #clear-history:hover {
+            background: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mood Tracker 😊</h2>
+
+        <div class="mood-buttons">
+            <button class="mood-btn" data-mood="Happy">😊</button>
+            <button class="mood-btn" data-mood="Sad">😢</button>
+            <button class="mood-btn" data-mood="Angry">😡</button>
+            <button class="mood-btn" data-mood="Excited">🤩</button>
+            <button class="mood-btn" data-mood="Relaxed">😌</button>
+        </div>
+
+        <h3>Today's Mood:</h3>
+        <p id="current-mood">No mood selected yet.</p>
+
+        <h3>Mood History:</h3>
+        <ul id="mood-history"></ul>
+
+        <h3>Mood Statistics:</h3>
+        <ul id="mood-stats"></ul>
+
+        <button id="clear-history">Clear Mood History</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const moodButtons = document.querySelectorAll(".mood-btn");
+            const currentMood = document.getElementById("current-mood");
+            const moodHistory = document.getElementById("mood-history");
+            const moodStats = document.getElementById("mood-stats");
+            const clearHistoryBtn = document.getElementById("clear-history");
+
+            function loadMoodHistory() {
+                const storedMoods = JSON.parse(localStorage.getItem("moodHistory")) || [];
+                moodHistory.innerHTML = "";
+                storedMoods.forEach((entry, index) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `${entry.mood} - ${entry.date} 
+                        <button class="delete-btn" data-index="${index}">X</button>`;
+                    moodHistory.appendChild(li);
+                });
+
+                updateMoodStats(storedMoods);
+            }
+
+            moodButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const selectedMood = button.getAttribute("data-mood");
+                    const timestamp = new Date().toLocaleString();
+
+                    currentMood.textContent = `${selectedMood} (${timestamp})`;
+
+                    const moodHistoryArray = JSON.parse(localStorage.getItem("moodHistory")) || [];
+                    moodHistoryArray.unshift({ mood: selectedMood, date: timestamp });
+                    localStorage.setItem("moodHistory", JSON.stringify(moodHistoryArray));
+
+                    loadMoodHistory();
+                });
+            });
+
+            moodHistory.addEventListener("click", (e) => {
+                if (e.target.classList.contains("delete-btn")) {
+                    const index = e.target.getAttribute("data-index");
+                    let moodHistoryArray = JSON.parse(localStorage.getItem("moodHistory")) || [];
+                    moodHistoryArray.splice(index, 1);
+                    localStorage.setItem("moodHistory", JSON.stringify(moodHistoryArray));
+                    loadMoodHistory();
+                }
+            });
+
+            clearHistoryBtn.addEventListener("click", () => {
+                localStorage.removeItem("moodHistory");
+                loadMoodHistory();
+            });
+
+            function updateMoodStats(moods) {
+                const moodCount = {};
+                moods.forEach(entry => {
+                    moodCount[entry.mood] = (moodCount[entry.mood] || 0) + 1;
+                });
+
+                moodStats.innerHTML = "";
+                Object.keys(moodCount).forEach(mood => {
+                    const li = document.createElement("li");
+                    li.textContent = `${mood}: ${moodCount[mood]} times`;
+                    moodStats.appendChild(li);
+                });
+            }
+
+            loadMoodHistory();
+        });
+    </script>
+</body>
+</html>
