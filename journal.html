@@ -126,7 +126,6 @@
         <option value="h6">Heading 6</option>
         <option value="p">Paragraph</option>
         <option value="pre">Code</option>
-        <option value="blockquote">Blockquote</option>
       </select>
       <input type="text" list="fontName" placeholder="Select Font" onchange="changeFont(this.value)" />
       <datalist id="fontName">
@@ -137,7 +136,7 @@
         <option value="Verdana">Verdana</option>
       </datalist>
       <select onchange="format('fontSize', this.value)">
-        <option value="">-- Size --</option>
+        <option value="">  Size  </option>
         <option value="1">Very Small</option>
         <option value="2">Small</option>
         <option value="3">Normal</option>
@@ -155,7 +154,7 @@
       <button onclick="format('removeFormat')">❌ Clear</button>
     </div>
 
-    <div id="editor" contenteditable="true">Start journaling...</div>
+    <div id="editor" style="column-count: 2; column-gap: 40px;background-color:white;" contenteditable="true">Start journaling...</div>
 
     <div>
       <span id="save"><button onclick="saveJournal()">Save Journal</button></span>
@@ -165,7 +164,14 @@
     <div id="journal-status"></div>
   </div>
 
-  <div id="toolbar"></div>
+  <div id="toolbar">
+    <button onclick="format('bold')"><b>B</b></button>
+    <button onclick="format('italic')"><i>I</i></button>
+    <button onclick="format('underline')"><u>U</u></button>
+    <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
+      <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
+    <button onclick="format('removeFormat')" title="Clear Formatting">❌</button>
+  </div>
 
   <script>
     function format(command, value = null) {
