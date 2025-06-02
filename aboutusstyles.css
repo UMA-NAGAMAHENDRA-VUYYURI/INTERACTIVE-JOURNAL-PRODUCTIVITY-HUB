@@ -14,7 +14,7 @@ h1, h2, h3 {
 }
 
 a {
-  color: #3498db;
+  color: #f97316;  /* Changed from blue to orange */
   text-decoration: none;
 }
 
@@ -38,7 +38,7 @@ a:hover {
 .section h2 {
   font-size: 2rem;
   margin-bottom: 20px;
-  border-bottom: 2px solid #3498db;
+  border-bottom: 2px solid #f97316;  /* Changed from blue to orange */
   display: inline-block;
   padding-bottom: 5px;
 }
@@ -90,12 +90,12 @@ a:hover {
 .feature-card ul li::before {
   content: "✔️";
   margin-right: 10px;
-  color: #27ae60;
+  color: #f97316;  /* Changed from green to orange */
 }
 
 .cta-button {
   display: inline-block;
-  background: #3498db;
+  background: #f97316;  /* Changed from blue to orange */
   color: #fff;
   padding: 10px 20px;
   border-radius: 5px;
@@ -104,7 +104,7 @@ a:hover {
 }
 
 .cta-button:hover {
-  background: #2980b9;
+  background: #e05d0a;  /* Darker orange for hover state */
 }
 
 .footer {
@@ -116,5 +116,5 @@ a:hover {
 }
 
 .footer a {
-  color: #3498db;
+  color: #f97316;  /* Changed from blue to orange */
 }
