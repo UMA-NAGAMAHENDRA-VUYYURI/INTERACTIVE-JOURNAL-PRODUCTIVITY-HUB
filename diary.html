@@ -41,7 +41,7 @@
     }
     #editor {
       flex: 1;
-      border: 1px solid #ccc;
+      border: 1px solid #faf3f3;
       padding: 10px;
       min-height: 300px;
       overflow-y: auto;
@@ -62,12 +62,12 @@
     }
     #submit button:hover {
       background-color: rgb(255, 89, 0);
-      box-shadow: #333 0px 5px 15px;
+      box-shadow: #333333 0px 5px 15px;
     }
     #diary-status {
       margin-top: 10px;
       font-style: italic;
-      color: #333;
+      color: #333333;
     }
   </style>
 </head>
@@ -115,7 +115,6 @@
       <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
       <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
       <button onclick="insertLink()">🔗 Link</button>
-      <button onclick="insertImage()">🖼️ Image</button>
       <button onclick="insertHorizontalRule()">― HR</button>
       <button onclick="format('removeFormat')">❌ Clear</button>
     </div>

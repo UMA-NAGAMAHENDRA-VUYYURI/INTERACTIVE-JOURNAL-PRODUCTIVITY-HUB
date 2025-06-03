@@ -147,7 +147,6 @@
       <input type="color" onchange="format('foreColor', this.value)" title="Text Color">
       <input type="color" onchange="format('hiliteColor', this.value)" title="Highlight">
       <button onclick="insertLink()">🔗 Link</button>
-      <button onclick="insertImage()">🖼️ Image</button>
       <button onclick="insertDate()">📅 Date</button>
       <button onclick="insertHorizontalRule()">― HR</button>
       <button onclick="format('removeFormat')">❌ Clear</button>
@@ -186,11 +185,6 @@
     function insertLink() {
       const url = prompt("Enter the URL:");
       if (url) format('createLink', url);
-    }
-
-    function insertImage() {
-      const url = prompt("Enter image URL:");
-      if (url) format('insertImage', url);
     }
 
     function insertDate() {
