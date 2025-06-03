@@ -105,7 +105,7 @@
 
       const usernameRegex = /^[A-Za-z0-9]{3,20}$/;
       if (!usernameRegex.test(username.value)) {
-        alert('Username must be 3–20 characters long and can only contain letters and numbers.');
+        alert('Username must be 3-20 characters long and can only contain letters and numbers.');
         return false;
       }
 
@@ -120,7 +120,7 @@
         return false;
       }
 
-      if (password.value !== confirm_password.value) {
+      if (password !== confirm_password) {
         alert('Passwords do not match!');
         return false;
       }
