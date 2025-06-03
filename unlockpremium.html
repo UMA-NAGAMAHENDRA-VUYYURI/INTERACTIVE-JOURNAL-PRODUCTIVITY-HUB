@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unlock Premium | Master Your Team's Productivity</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #3a0ca3;
+      --secondary-color: #2a075e;
+      --accent-color: #7209b7;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --gray-color: #6c757d;
+      --success-color: #4cc9f0;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 1rem;
+      animation: fadeIn 1s ease;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 800;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--gray-color);
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      flex-wrap: wrap;
+    }
+    
+    .hero-content {
+      flex: 1;
+      min-width: 300px;
+      padding: 1rem;
+    }
+    
+    .hero-image {
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+    }
+    
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Features Section */
+    .features {
+      margin: 4rem 0;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .feature-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 1rem;
+    }
+    
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+    
+    /* Pricing Card */
+    .pricing-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 2rem;
+      max-width: 500px;
+      margin: 3rem auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--accent-color);
+    }
+    
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    }
+    
+    .pricing-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .pricing-price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      margin-bottom: 1.5rem;
+    }
+    
+    .pricing-price span {
+      font-size: 1.2rem;
+      color: var(--gray-color);
+      font-weight: normal;
+    }
+    
+    .pricing-features {
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    
+    .feature-item i {
+      color: var(--success-color);
+      margin-right: 0.8rem;
+    }
+    
+    /* Payment Options */
+    .payment-options {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    
+    .payment-method {
+      padding: 0.8rem 1.5rem;
+      border: 2px solid #ddd;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .payment-method i {
+      font-size: 1.2rem;
+    }
+    
+    .payment-method:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .payment-method.active {
+      border-color: var(--accent-color);
+      background-color: rgba(114, 9, 183, 0.1);
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #ddd;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(58, 12, 163, 0.2);
+    }
+    
+    /* Button Styles */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+      text-decoration: none;
+    }
+    
+    .btn-block {
+      display: block;
+      width: 100%;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(58, 12, 163, 0.4);
+    }
+    
+    .btn-accent {
+      background-color: var(--accent-color);
+      color: white;
+    }
+    
+    .btn-accent:hover {
+      background-color: #5a08a0;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(114, 9, 183, 0.4);
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      margin: 4rem 0;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .testimonial-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      box-shadow: var(--box-shadow);
+      position: relative;
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
+    .testimonial-text::before {
+      content: '"';
+      font-size: 4rem;
+      color: rgba(58, 12, 163, 0.1);
+      position: absolute;
+      top: -1.5rem;
+      left: -1rem;
+      z-index: -1;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+    
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 1rem;
+      object-fit: cover;
+    }
+    
+    .author-info h4 {
+      margin-bottom: 0.2rem;
+      color: var(--secondary-color);
+    }
+    
+    .author-info p {
+      color: var(--gray-color);
+      font-size: 0.9rem;
+    }
+    
+    /* Toggle Switch */
+    .toggle-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .toggle-label {
+      margin: 0 1rem;
+      font-weight: 600;
+      color: var(--gray-color);
+    }
+    
+    .toggle-label.active {
+      color: var(--primary-color);
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+      }
+      
+      .hero-content, .hero-image {
+        width: 100%;
+        text-align: center;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* Progress Steps */
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+    
+    .progress-steps::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: #ddd;
+      z-index: -1;
+      transform: translateY(-50%);
+    }
+    
+    .progress-bar {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      z-index: -1;
+      transform: translateY(-50%);
+      transition: width 0.4s ease;
+    }
+    
+    .step {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--gray-color);
+      transition: all 0.4s ease;
+    }
+    
+    .step.active {
+      border-color: var(--accent-color);
+      color: var(--accent-color);
+      background: white;
+    }
+    
+    .step.completed {
+      border-color: var(--accent-color);
+      background-color: var(--accent-color);
+      color: white;
+    }
+    
+    /* Form Steps */
+    .form-step {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .form-step.active {
+      display: block;
+    }
+    
+    /* Success Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 3rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray-color);
+    }
+    
+    .modal-icon {
+      font-size: 4rem;
+      color: var(--success-color);
+      margin-bottom: 1rem;
+      animation: bounce 1s;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-30px);}
+      60% {transform: translateY(-15px);}
+    }
+    
+    /* Premium Badge */
+    .premium-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Summary Items */
+    .summary-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .summary-item h4 {
+      color: var(--gray-color);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .summary-item p {
+      font-size: 1.1rem;
+    }
+    
+    /* Flex Buttons */
+    .flex-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    
+    .btn-outline {
+      background: white;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+    }
+    
+    .btn-outline:hover {
+      background: rgba(114, 9, 183, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Unlock Premium</h1>
+        <h2>Elevate Your Team's Productivity</h2>
+        <p class="subtitle">Collaborate seamlessly with your team and access powerful features designed for professionals who demand more from their journaling and productivity tools.</p>
+        <div class="pricing-card">
+          <div class="premium-badge">Premium</div>
+          <h3 class="pricing-title">JPH Master</h3>
+          <div class="pricing-price">$29<span>/month</span></div>
+          
+          <div class="pricing-features">
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Shared journals & task boards</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Team productivity dashboards</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Custom branding & white-labeling</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i>
+              <span>50GB storage + API access</span>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-check-circle"></i>
+              <span>Dedicated support</span>
+            </div>
+          </div>
+          
+          <button id="start-subscription" class="btn btn-accent btn-block">Start Your 30-Day Free Trial</button>
+          <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--gray-color);">No credit card required</p>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Team collaboration">
+      </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+      <h2>Premium Features for Teams & Organizations</h2>
+      <p class="subtitle">Everything your team needs to collaborate effectively and track progress together</p>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="feature-title">Team Collaboration</h3>
+          <p>Shared journals and task boards that keep everyone aligned and accountable for their goals and reflections.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <h3 class="feature-title">Productivity Dashboards</h3>
+          <p>Visualize team progress with comprehensive analytics that highlight patterns and opportunities for improvement.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h3 class="feature-title">Custom Branding</h3>
+          <p>White-label the platform with your organization's branding for a seamless professional experience.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <h3 class="feature-title">Ample Storage</h3>
+          <p>50GB of secure storage for all your team's journal entries, attachments, and shared documents.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-plug"></i>
+          </div>
+          <h3 class="feature-title">API Access</h3>
+          <p>Integrate with your existing tools and workflows through our comprehensive developer API.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3 class="feature-title">Dedicated Support</h3>
+          <p>Priority support with a dedicated account manager to ensure your team gets the most from the platform.</p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <h2>Trusted by Leading Teams</h2>
+      <p class="subtitle">See how organizations are transforming their productivity with JPH Master</p>
+      
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            The team dashboards gave us visibility we never had before. We've improved our sprint retrospectives by 40% since implementing JPH Master.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Lisa M." class="author-avatar">
+            <div class="author-info">
+              <h4>Lisa M.</h4>
+              <p>Scrum Master, Tech Company</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            Our remote team stays connected through shared journals. The custom branding makes it feel like our own internal tool.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David R." class="author-avatar">
+            <div class="author-info">
+              <h4>David R.</h4>
+              <p>COO, Marketing Agency</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-text">
+            The API integration with our existing systems was seamless. Now we have a unified view of team wellbeing and productivity.
+          </div>
+          <div class="testimonial-author">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Anika P." class="author-avatar">
+            <div class="author-info">
+              <h4>Anika P.</h4>
+              <p>CTO, Startup</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Subscription Form (Hidden Initially) -->
+    <div id="subscription-form" style="display: none;">
+      <h2>Start Your Premium Experience</h2>
+      <p class="subtitle">Complete your subscription in just a few steps</p>
+      
+      <!-- Progress Steps -->
+      <div class="progress-steps">
+        <div class="step completed" id="step-1">1</div>
+        <div class="step active" id="step-2">2</div>
+        <div class="step" id="step-3">3</div>
+      </div>
+      <div class="progress-bar" id="progress-bar" style="width: 33%"></div>
+      
+      <!-- Form Steps -->
+      <div class="form-steps">
+        <!-- Step 1: Billing Period -->
+        <div class="form-step active" id="form-step-1">
+          <div class="pricing-card">
+            <h3 class="pricing-title">Choose Your Plan</h3>
+            
+            <div class="toggle-container">
+              <span class="toggle-label active">Monthly</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="billing-toggle">
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-label">Yearly <span style="color: var(--accent-color);">(Save 20%)</span></span>
+            </div>
+            
+            <div class="pricing-features">
+              <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>30-day free trial</span>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Cancel anytime</span>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>No commitment</span>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Add team members anytime</span>
+              </div>
+            </div>
+            
+            <button class="btn btn-accent btn-block" id="next-to-step-2">Continue</button>
+          </div>
+        </div>
+        
+        <!-- Step 2: Payment Method -->
+        <div class="form-step" id="form-step-2">
+          <div class="pricing-card">
+            <h3 class="pricing-title">Payment Method</h3>
+            
+            <div class="payment-options">
+              <div class="payment-method active" data-method="credit">
+                <i class="far fa-credit-card"></i>
+                Credit Card
+              </div>
+              <div class="payment-method" data-method="paypal">
+                <i class="fab fa-paypal"></i>
+                PayPal
+              </div>
+              <div class="payment-method" data-method="invoice">
+                <i class="fas fa-file-invoice"></i>
+                Invoice
+              </div>
+            </div>
+            
+            <div id="credit-card-form">
+              <div class="form-group">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
+              </div>
+              
+              <div class="form-group">
+                <label for="card-expiry">Expiration Date</label>
+                <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY">
+              </div>
+              
+              <div class="form-group">
+                <label for="card-cvc">CVC</label>
+                <input type="text" id="card-cvc" class="form-control" placeholder="123">
+              </div>
+              
+              <div class="form-group">
+                <label for="card-name">Name on Card</label>
+                <input type="text" id="card-name" class="form-control" placeholder="John Doe">
+              </div>
+            </div>
+            
+            <div id="paypal-form" style="display: none;">
+              <p>You'll be redirected to PayPal to complete your payment after clicking "Subscribe".</p>
+            </div>
+            
+            <div id="invoice-form" style="display: none;">
+              <div class="form-group">
+                <label for="company-name">Company Name</label>
+                <input type="text" id="company-name" class="form-control" placeholder="Your Company LLC">
+              </div>
+              <div class="form-group">
+                <label for="purchase-order">Purchase Order Number (Optional)</label>
+                <input type="text" id="purchase-order" class="form-control" placeholder="PO12345">
+              </div>
+              <p>We'll email you an invoice within 24 hours. Your account will be activated upon payment.</p>
+            </div>
+            
+            <div class="form-group">
+              <input type="checkbox" id="terms-agree">
+              <label for="terms-agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+            </div>
+            
+            <div class="flex-buttons">
+              <button class="btn btn-outline" id="back-to-step-1">Back</button>
+              <button class="btn btn-accent" id="next-to-step-3">Continue</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 3: Review & Confirm -->
+        <div class="form-step" id="form-step-3">
+          <div class="pricing-card">
+            <h3 class="pricing-title">Review Your Subscription</h3>
+            
+            <div class="summary-item">
+              <h4>Plan</h4>
+              <p id="plan-summary">JPH Master - Monthly ($29/month)</p>
+            </div>
+            
+            <div class="summary-item">
+              <h4>Payment Method</h4>
+              <p id="payment-summary">Visa ending in 4242</p>
+            </div>
+            
+            <div class="summary-item">
+              <h4>Billing</h4>
+              <p>First payment after 30-day free trial</p>
+            </div>
+            
+            <div class="summary-item">
+              <h4>Team Members</h4>
+              <p>Start with 1 seat (add more anytime)</p>
+            </div>
+            
+            <div class="form-group">
+              <input type="checkbox" id="receipt-email">
+              <label for="receipt-email">Email me a receipt</label>
+            </div>
+            
+            <div class="flex-buttons">
+              <button class="btn btn-outline" id="back-to-step-2">Back</button>
+              <button class="btn btn-accent" id="complete-subscription">Start My Free Trial</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-icon">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Welcome to JPH Master!</h2>
+        <p>Your 30-day free trial has started. We've sent a confirmation email with all the details.</p>
+        <p>You can now invite team members and access all premium features.</p>
+        <button class="btn btn-accent" id="go-to-dashboard">Go to Team Dashboard</button>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // DOM Elements
+    const startSubscriptionBtn = document.getElementById('start-subscription');
+    const subscriptionForm = document.getElementById('subscription-form');
+    const billingToggle = document.getElementById('billing-toggle');
+    const paymentMethods = document.querySelectorAll('.payment-method');
+    const creditCardForm = document.getElementById('credit-card-form');
+    const paypalForm = document.getElementById('paypal-form');
+    const invoiceForm = document.getElementById('invoice-form');
+    const formSteps = document.querySelectorAll('.form-step');
+    const steps = document.querySelectorAll('.step');
+    const progressBar = document.getElementById('progress-bar');
+    const nextToStep2Btn = document.getElementById('next-to-step-2');
+    const nextToStep3Btn = document.getElementById('next-to-step-3');
+    const backToStep1Btn = document.getElementById('back-to-step-1');
+    const backToStep2Btn = document.getElementById('back-to-step-2');
+    const completeSubscriptionBtn = document.getElementById('complete-subscription');
+    const successModal = document.getElementById('success-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const goToDashboardBtn = document.getElementById('go-to-dashboard');
+    const planSummary = document.getElementById('plan-summary');
+    const paymentSummary = document.getElementById('payment-summary');
+    
+    // Show subscription form when "Start Trial" is clicked
+    startSubscriptionBtn.addEventListener('click', () => {
+      startSubscriptionBtn.style.display = 'none';
+      subscriptionForm.style.display = 'block';
+      document.querySelector('.hero-content').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    // Toggle billing period
+    billingToggle.addEventListener('change', function() {
+      if (this.checked) {
+        planSummary.textContent = 'JPH Master - Yearly ($278.40/year)';
+      } else {
+        planSummary.textContent = 'JPH Master - Monthly ($29/month)';
+      }
+    });
+    
+    // Payment method selection
+    paymentMethods.forEach(method => {
+      method.addEventListener('click', () => {
+        paymentMethods.forEach(m => m.classList.remove('active'));
+        method.classList.add('active');
+        
+        if (method.dataset.method === 'credit') {
+          creditCardForm.style.display = 'block';
+          paypalForm.style.display = 'none';
+          invoiceForm.style.display = 'none';
+          paymentSummary.textContent = 'Visa ending in 4242';
+        } else if (method.dataset.method === 'paypal') {
+          creditCardForm.style.display = 'none';
+          paypalForm.style.display = 'block';
+          invoiceForm.style.display = 'none';
+          paymentSummary.textContent = 'PayPal';
+        } else {
+          creditCardForm.style.display = 'none';
+          paypalForm.style.display = 'none';
+          invoiceForm.style.display = 'block';
+          paymentSummary.textContent = 'Invoice';
+        }
+      });
+    });
+    
+    // Form navigation
+    let currentStep = 1;
+    
+    function updateProgress() {
+      // Update progress bar
+      const progressPercentage = (currentStep / 3) * 100;
+      progressBar.style.width = `${progressPercentage}%`;
+      
+      // Update step indicators
+      steps.forEach((step, index) => {
+        if (index + 1 < currentStep) {
+          step.classList.remove('active');
+          step.classList.add('completed');
+        } else if (index + 1 === currentStep) {
+          step.classList.add('active');
+          step.classList.remove('completed');
+        } else {
+          step.classList.remove('active', 'completed');
+        }
+      });
+      
+      // Show current form step
+      formSteps.forEach((step, index) => {
+        if (index + 1 === currentStep) {
+          step.classList.add('active');
+        } else {
+          step.classList.remove('active');
+        }
+      });
+    }
+    
+    nextToStep2Btn.addEventListener('click', () => {
+      currentStep = 2;
+      updateProgress();
+    });
+    
+    nextToStep3Btn.addEventListener('click', () => {
+      // Validate form before proceeding
+      if (!document.getElementById('terms-agree').checked) {
+        alert('Please agree to the Terms of Service and Privacy Policy');
+        return;
+      }
+      
+      currentStep = 3;
+      updateProgress();
+    });
+    
+    backToStep1Btn.addEventListener('click', () => {
+      currentStep = 1;
+      updateProgress();
+    });
+    
+    backToStep2Btn.addEventListener('click', () => {
+      currentStep = 2;
+      updateProgress();
+    });
+    
+    // Complete subscription
+    completeSubscriptionBtn.addEventListener('click', () => {
+      // In a real app, you would process payment here
+      
+      // Show success modal
+      successModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      successModal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+    
+    goToDashboardBtn.addEventListener('click', () => {
+      // Redirect to dashboard page in a real app
+      alert('Redirecting to your team dashboard...');
+      successModal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === successModal) {
+        successModal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+    
+    // Initialize
+    updateProgress();
+  </script>
+</body>
+</html>
