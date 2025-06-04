@@ -1,1024 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unlock Plus | Grow Your Journaling Experience</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary-color: #4361ee;
-      --secondary-color: #3a0ca3;
-      --accent-color: #f72585;
-      --light-color: #f8f9fa;
-      --dark-color: #212529;
-      --gray-color: #6c757d;
-      --success-color: #4cc9f0;
-      --border-radius: 12px;
-      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-      background-color: var(--light-color);
-      color: var(--dark-color);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-      padding: 1rem;
-      animation: fadeIn 1s ease;
-    }
-    
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 800;
-    }
-    
-    h2 {
-      font-size: 1.8rem;
-      color: var(--secondary-color);
-      margin-bottom: 1rem;
-    }
-    
-    .subtitle {
-      font-size: 1.2rem;
-      color: var(--gray-color);
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-    
-    /* Hero Section */
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4rem;
-      flex-wrap: wrap;
-    }
-    
-    .hero-content {
-      flex: 1;
-      min-width: 300px;
-      padding: 1rem;
-    }
-    
-    .hero-image {
-      flex: 1;
-      min-width: 300px;
-      text-align: center;
-    }
-    
-    .hero-image img {
-      max-width: 100%;
-      height: auto;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      animation: float 6s ease-in-out infinite;
-    }
-    
-    /* Features Section */
-    .features {
-      margin: 4rem 0;
-    }
-    
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    
-    .feature-card {
-      background: white;
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      box-shadow: var(--box-shadow);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    }
-    
-    .feature-icon {
-      font-size: 2.5rem;
-      color: var(--accent-color);
-      margin-bottom: 1rem;
-    }
-    
-    .feature-title {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--secondary-color);
-      margin-bottom: 1rem;
-    }
-    
-    /* Pricing Card */
-    .pricing-card {
-      background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      padding: 2rem;
-      max-width: 500px;
-      margin: 3rem auto;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .pricing-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    }
-    
-    .pricing-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--secondary-color);
-      margin-bottom: 1rem;
-    }
-    
-    .pricing-price {
-      font-size: 3rem;
-      font-weight: 800;
-      color: var(--accent-color);
-      margin-bottom: 1.5rem;
-    }
-    
-    .pricing-price span {
-      font-size: 1.2rem;
-      color: var(--gray-color);
-      font-weight: normal;
-    }
-    
-    .pricing-features {
-      margin-bottom: 2rem;
-      text-align: left;
-    }
-    
-    .feature-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-    }
-    
-    .feature-item i {
-      color: var(--success-color);
-      margin-right: 0.8rem;
-    }
-    
-    /* Payment Options */
-    .payment-options {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-    }
-    
-    .payment-method {
-      padding: 0.8rem 1.5rem;
-      border: 2px solid #ddd;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      transition: var(--transition);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .payment-method i {
-      font-size: 1.2rem;
-    }
-    
-    .payment-method:hover {
-      border-color: var(--primary-color);
-    }
-    
-    .payment-method.active {
-      border-color: var(--accent-color);
-      background-color: rgba(247, 37, 133, 0.1);
-    }
-    
-    /* Form Styles */
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: var(--secondary-color);
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border: 2px solid #ddd;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-    
-    .form-control:focus {
-      border-color: var(--primary-color);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-    }
-    
-    /* Button Styles */
-    .btn {
-      display: inline-block;
-      padding: 1rem 2rem;
-      border: none;
-      border-radius: var(--border-radius);
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: var(--transition);
-      text-align: center;
-      text-decoration: none;
-    }
-    
-    .btn-block {
-      display: block;
-      width: 100%;
-    }
-    
-    .btn-primary {
-      background-color: var(--primary-color);
-      color: white;
-    }
-    
-    .btn-primary:hover {
-      background-color: var(--secondary-color);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
-    }
-    
-    .btn-accent {
-      background-color: var(--accent-color);
-      color: white;
-    }
-    
-    .btn-accent:hover {
-      background-color: #d91a6d;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
-    }
-    
-    /* Testimonials */
-    .testimonials {
-      margin: 4rem 0;
-    }
-    
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
-    }
-    
-    .testimonial-card {
-      background: white;
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      box-shadow: var(--box-shadow);
-      position: relative;
-    }
-    
-    .testimonial-text {
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    
-    .testimonial-text::before {
-      content: '"';
-      font-size: 4rem;
-      color: rgba(67, 97, 238, 0.1);
-      position: absolute;
-      top: -1.5rem;
-      left: -1rem;
-      z-index: -1;
-    }
-    
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-    }
-    
-    .author-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 1rem;
-      object-fit: cover;
-    }
-    
-    .author-info h4 {
-      margin-bottom: 0.2rem;
-      color: var(--secondary-color);
-    }
-    
-    .author-info p {
-      color: var(--gray-color);
-      font-size: 0.9rem;
-    }
-    
-    /* Toggle Switch */
-    .toggle-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-    
-    .toggle-label {
-      margin: 0 1rem;
-      font-weight: 600;
-      color: var(--gray-color);
-    }
-    
-    .toggle-label.active {
-      color: var(--primary-color);
-    }
-    
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 60px;
-      height: 34px;
-    }
-    
-    .toggle-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-      border-radius: 34px;
-    }
-    
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    
-    input:checked + .slider {
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    }
-    
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
-    
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0px); }
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero {
-        flex-direction: column;
-      }
-      
-      .hero-content, .hero-image {
-        width: 100%;
-        text-align: center;
-      }
-      
-      h1 {
-        font-size: 2rem;
-      }
-      
-      h2 {
-        font-size: 1.5rem;
-      }
-    }
-    
-    /* Progress Steps */
-    .progress-steps {
-      display: flex;
-      justify-content: space-between;
-      position: relative;
-      margin: 2rem auto;
-      max-width: 600px;
-    }
-    
-    .progress-steps::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: #ddd;
-      z-index: -1;
-      transform: translateY(-50%);
-    }
-    
-    .progress-bar {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      z-index: -1;
-      transform: translateY(-50%);
-      transition: width 0.4s ease;
-    }
-    
-    .step {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: white;
-      border: 3px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: var(--gray-color);
-      transition: all 0.4s ease;
-    }
-    
-    .step.active {
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-      background: white;
-    }
-    
-    .step.completed {
-      border-color: var(--accent-color);
-      background-color: var(--accent-color);
-      color: white;
-    }
-    
-    /* Form Steps */
-    .form-step {
-      display: none;
-      animation: fadeIn 0.5s ease;
-    }
-    
-    .form-step.active {
-      display: block;
-    }
-    
-    /* Success Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .modal-content {
-      background: white;
-      padding: 3rem;
-      border-radius: var(--border-radius);
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 0.3s ease;
-      position: relative;
-    }
-    
-    .close-modal {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--gray-color);
-    }
-    
-    .modal-icon {
-      font-size: 4rem;
-      color: var(--success-color);
-      margin-bottom: 1rem;
-      animation: bounce 1s;
-    }
-    
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-      40% {transform: translateY(-30px);}
-      60% {transform: translateY(-15px);}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Method</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: #fff8f0;
+        }
+        h2 {
+            color: #e67e22;
+        }
+        .payment-method {
+            margin-bottom: 20px;
+        }
+        .method-options {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .method-option {
+            display: flex;
+            align-items: center;
+        }
+        .method-option input[type="radio"] {
+            accent-color: #e67e22;
+            margin-right: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #d35400;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #f39c12;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #fff;
+        }
+        input:focus {
+            outline: 2px solid #e67e22;
+            border-color: transparent;
+        }
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+        .row .form-group {
+            flex: 1;
+        }
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .checkbox input {
+            width: auto;
+            margin-right: 10px;
+            accent-color: #e67e22;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .back-btn {
+            background: #f5b041;
+            color: white;
+        }
+        .back-btn:hover {
+            background: #e67e22;
+        }
+        .continue-btn {
+            background: #e67e22;
+            color: white;
+        }
+        .continue-btn:hover {
+            background: #d35400;
+        }
+        .upi-section {
+            display: none;
+            text-align: center;
+        }
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 15px auto;
+            background: #fdebd0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #f39c12;
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background-color: #fef5e7;
+            border-radius: 8px;
+            border: 1px solid #f5b041;
+        }
+        .success-icon {
+            font-size: 50px;
+            color: #e67e22;
+            margin-bottom: 15px;
+        }
+        .payment-form {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(230, 126, 34, 0.1);
+        }
+        .or-divider {
+            color: #f39c12;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Unlock Plus</h1>
-        <h2>Supercharge Your Journaling Experience</h2>
-        <p class="subtitle">Get access to advanced features that help you reflect, grow, and achieve more with your daily journaling practice.</p>
-        <div class="pricing-card">
-          <h3 class="pricing-title">GPH Grow</h3>
-          <div class="pricing-price">$9<span>/month</span></div>
-          
-          <div class="pricing-features">
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Rich-text editor (images, videos, embeds)</span>
+    <div class="payment-form">
+        <h2>Payment Method</h2>
+        
+        <div class="payment-method">
+            <div class="method-options">
+                <div class="method-option">
+                    <input type="radio" id="credit" name="paymentMethod" value="credit" checked>
+                    <label for="credit">Credit Card</label>
+                </div>
+                <div class="method-option">
+                    <input type="radio" id="debit" name="paymentMethod" value="debit">
+                    <label for="debit">Debit Card</label>
+                </div>
+                <div class="method-option">
+                    <input type="radio" id="upi" name="paymentMethod" value="upi">
+                    <label for="upi">UPI</label>
+                </div>
             </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Advanced mood tracker + analytics</span>
+            
+            <div class="card-section">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                
+                <div class="row">
+                    <div class="form-group">
+                        <label for="expDate">Expiration Date</label>
+                        <input type="text" id="expDate" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label for="cvc">CVC</label>
+                        <input type="text" id="cvc" placeholder="123" maxlength="3">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cardName">Name on Card</label>
+                    <input type="text" id="cardName" placeholder="John Doe">
+                </div>
             </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Unlimited prompts & templates</span>
+            
+            <div class="upi-section">
+                <div class="form-group">
+                    <label for="upiId">UPI ID</label>
+                    <input type="text" id="upiId" placeholder="yourname@upi">
+                </div>
+                <div class="or-divider">OR</div>
+                <div class="qr-code">
+                    [QR Code Image]
+                </div>
             </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Priority tasks & recurring reminders</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>10GB storage</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Early access to new features</span>
-            </div>
-          </div>
-          
-          <button id="start-subscription" class="btn btn-accent btn-block">Start Your 14-Day Free Trial</button>
-          <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: var(--gray-color);">No credit card required</p>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Journaling app screenshot">
-      </div>
-    </section>
-    
-    <!-- Features Section -->
-    <section class="features">
-      <h2>What You'll Get With Unlock Plus</h2>
-      <p class="subtitle">Everything you need to make journaling a powerful tool for personal growth</p>
-      
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-edit"></i>
-          </div>
-          <h3 class="feature-title">Rich Text Editor</h3>
-          <p>Go beyond plain text with formatting options, image embedding, and multimedia support to make your entries more expressive.</p>
         </div>
         
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3 class="feature-title">Mood Analytics</h3>
-          <p>Track your emotional patterns over time with visual analytics that help you understand your mental and emotional wellbeing.</p>
+        <div class="checkbox">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the Terms of Service and Privacy Policy</label>
         </div>
         
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-lightbulb"></i>
-          </div>
-          <h3 class="feature-title">Unlimited Prompts</h3>
-          <p>Never face writer's block again with our extensive library of thought-provoking prompts tailored to your goals.</p>
+        <div class="buttons">
+            <button class="back-btn">Back</button>
+            <button class="continue-btn">Continue to Payment</button>
         </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-tasks"></i>
-          </div>
-          <h3 class="feature-title">Advanced Tasks</h3>
-          <p>Turn reflections into action with priority tasks, recurring reminders, and productivity tracking.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-cloud"></i>
-          </div>
-          <h3 class="feature-title">Ample Storage</h3>
-          <p>10GB of secure storage for all your journal entries, attachments, and media - enough for years of growth.</p>
-        </div>
-        
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-rocket"></i>
-          </div>
-          <h3 class="feature-title">Early Access</h3>
-          <p>Be the first to try new features and provide input that helps shape the future of our journaling platform.</p>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Testimonials -->
-    <section class="testimonials">
-      <h2>What Our Members Say</h2>
-      <p class="subtitle">Join thousands of users who transformed their journaling practice</p>
-      
-      <div class="testimonial-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-text">
-            Unlock Plus completely changed how I journal. The mood tracking helped me identify patterns in my mental health I never noticed before.
-          </div>
-          <div class="testimonial-author">
-            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J." class="author-avatar">
-            <div class="author-info">
-              <h4>Sarah J.</h4>
-              <p>Member since 2021</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="testimonial-card">
-          <div class="testimonial-text">
-            As a writer, the unlimited prompts and rich text editor have been game-changers. My journal is now my creative playground.
-          </div>
-          <div class="testimonial-author">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="author-avatar">
-            <div class="author-info">
-              <h4>Michael T.</h4>
-              <p>Author & Content Creator</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="testimonial-card">
-          <div class="testimonial-text">
-            The task integration means I actually follow through on insights from my journal. It's become my personal development command center.
-          </div>
-          <div class="testimonial-author">
-            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya K." class="author-avatar">
-            <div class="author-info">
-              <h4>Priya K.</h4>
-              <p>Product Manager</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Subscription Form (Hidden Initially) -->
-    <div id="subscription-form" style="display: none;">
-      <h2>Start Your Unlock Plus Journey</h2>
-      <p class="subtitle">Complete your subscription in just a few steps</p>
-      
-      <!-- Progress Steps -->
-      <div class="progress-steps">
-        <div class="step completed" id="step-1">1</div>
-        <div class="step active" id="step-2">2</div>
-        <div class="step" id="step-3">3</div>
-      </div>
-      <div class="progress-bar" id="progress-bar" style="width: 33%"></div>
-      
-      <!-- Form Steps -->
-      <div class="form-steps">
-        <!-- Step 1: Billing Period -->
-        <div class="form-step active" id="form-step-1">
-          <div class="pricing-card">
-            <h3 class="pricing-title">Choose Your Plan</h3>
-            
-            <div class="toggle-container">
-              <span class="toggle-label active">Monthly</span>
-              <label class="toggle-switch">
-                <input type="checkbox" id="billing-toggle">
-                <span class="slider"></span>
-              </label>
-              <span class="toggle-label">Yearly <span style="color: var(--accent-color);">(Save 20%)</span></span>
-            </div>
-            
-            <div class="pricing-features">
-              <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>14-day free trial</span>
-              </div>
-              <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>Cancel anytime</span>
-              </div>
-              <div class="feature-item">
-                <i class="fas fa-check-circle"></i>
-                <span>No commitment</span>
-              </div>
-            </div>
-            
-            <button class="btn btn-accent btn-block" id="next-to-step-2">Continue</button>
-          </div>
-        </div>
-        
-        <!-- Step 2: Payment Method -->
-        <div class="form-step" id="form-step-2">
-          <div class="pricing-card">
-            <h3 class="pricing-title">Payment Method</h3>
-            
-            <div class="payment-options">
-              <div class="payment-method active" data-method="credit">
-                <i class="far fa-credit-card"></i>
-                Credit Card
-              </div>
-              <div class="payment-method" data-method="paypal">
-                <i class="fab fa-paypal"></i>
-                PayPal
-              </div>
-            </div>
-            
-            <div id="credit-card-form">
-              <div class="form-group">
-                <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" class="form-control" placeholder="1234 5678 9012 3456">
-              </div>
-              
-              <div class="form-group">
-                <label for="card-expiry">Expiration Date</label>
-                <input type="text" id="card-expiry" class="form-control" placeholder="MM/YY">
-              </div>
-              
-              <div class="form-group">
-                <label for="card-cvc">CVC</label>
-                <input type="text" id="card-cvc" class="form-control" placeholder="123">
-              </div>
-              
-              <div class="form-group">
-                <label for="card-name">Name on Card</label>
-                <input type="text" id="card-name" class="form-control" placeholder="John Doe">
-              </div>
-            </div>
-            
-            <div id="paypal-form" style="display: none;">
-              <p>You'll be redirected to PayPal to complete your payment after clicking "Subscribe".</p>
-            </div>
-            
-            <div class="form-group">
-              <input type="checkbox" id="terms-agree">
-              <label for="terms-agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
-            </div>
-            
-            <div class="flex-buttons">
-              <button class="btn btn-outline" id="back-to-step-1">Back</button>
-              <button class="btn btn-accent" id="next-to-step-3">Continue</button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Step 3: Review & Confirm -->
-        <div class="form-step" id="form-step-3">
-          <div class="pricing-card">
-            <h3 class="pricing-title">Review Your Subscription</h3>
-            
-            <div class="summary-item">
-              <h4>Plan</h4>
-              <p id="plan-summary">GPH Grow - Monthly ($9/month)</p>
-            </div>
-            
-            <div class="summary-item">
-              <h4>Payment Method</h4>
-              <p id="payment-summary">Visa ending in 4242</p>
-            </div>
-            
-            <div class="summary-item">
-              <h4>Billing</h4>
-              <p>First payment after 14-day free trial</p>
-            </div>
-            
-            <div class="form-group">
-              <input type="checkbox" id="receipt-email">
-              <label for="receipt-email">Email me a receipt</label>
-            </div>
-            
-            <div class="flex-buttons">
-              <button class="btn btn-outline" id="back-to-step-2">Back</button>
-              <button class="btn btn-accent" id="complete-subscription">Start My Free Trial</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     
-    <!-- Success Modal -->
-    <div class="modal" id="success-modal">
-      <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <div class="modal-icon">
-          <i class="fas fa-check-circle"></i>
-        </div>
-        <h2>Welcome to Unlock Plus!</h2>
-        <p>Your 14-day free trial has started. We've sent a confirmation email with all the details.</p>
-        <p>You can now access all Unlock Plus features in your journal.</p>
-        <button class="btn btn-accent" id="go-to-journal">Open My Journal</button>
-      </div>
+    <div class="success-message">
+        <div class="success-icon">✓</div>
+        <h2 style="color: #e67e22;">Payment Successful! 🎉</h2>
+        <p>Welcome to JPH Plus!</p>
+        <p>✓ You now have access to all Plus features</p>
+        <p>✓ Your subscription is active until <span id="expiryDate"></span></p>
+        <p>✓ A confirmation has been sent to your email</p>
+        <button class="continue-btn" style="margin-top: 20px;">Go to Dashboard</button>
     </div>
-  </div>
-  
-  <script>
-    // DOM Elements
-    const startSubscriptionBtn = document.getElementById('start-subscription');
-    const subscriptionForm = document.getElementById('subscription-form');
-    const billingToggle = document.getElementById('billing-toggle');
-    const paymentMethods = document.querySelectorAll('.payment-method');
-    const creditCardForm = document.getElementById('credit-card-form');
-    const paypalForm = document.getElementById('paypal-form');
-    const formSteps = document.querySelectorAll('.form-step');
-    const steps = document.querySelectorAll('.step');
-    const progressBar = document.getElementById('progress-bar');
-    const nextToStep2Btn = document.getElementById('next-to-step-2');
-    const nextToStep3Btn = document.getElementById('next-to-step-3');
-    const backToStep1Btn = document.getElementById('back-to-step-1');
-    const backToStep2Btn = document.getElementById('back-to-step-2');
-    const completeSubscriptionBtn = document.getElementById('complete-subscription');
-    const successModal = document.getElementById('success-modal');
-    const closeModal = document.querySelector('.close-modal');
-    const goToJournalBtn = document.getElementById('go-to-journal');
-    const planSummary = document.getElementById('plan-summary');
-    const paymentSummary = document.getElementById('payment-summary');
-    
-    // Show subscription form when "Start Trial" is clicked
-    startSubscriptionBtn.addEventListener('click', () => {
-      startSubscriptionBtn.style.display = 'none';
-      subscriptionForm.style.display = 'block';
-      document.querySelector('.hero-content').scrollIntoView({ behavior: 'smooth' });
-    });
-    
-    // Toggle billing period
-    billingToggle.addEventListener('change', function() {
-      if (this.checked) {
-        planSummary.textContent = 'GPH Grow - Yearly ($86.40/year)';
-      } else {
-        planSummary.textContent = 'GPH Grow - Monthly ($9/month)';
-      }
-    });
-    
-    // Payment method selection
-    paymentMethods.forEach(method => {
-      method.addEventListener('click', () => {
-        paymentMethods.forEach(m => m.classList.remove('active'));
-        method.classList.add('active');
+
+    <script>
+        // Toggle between card and UPI sections
+        const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+        const cardSection = document.querySelector('.card-section');
+        const upiSection = document.querySelector('.upi-section');
         
-        if (method.dataset.method === 'credit') {
-          creditCardForm.style.display = 'block';
-          paypalForm.style.display = 'none';
-          paymentSummary.textContent = 'Visa ending in 4242';
-        } else {
-          creditCardForm.style.display = 'none';
-          paypalForm.style.display = 'block';
-          paymentSummary.textContent = 'PayPal';
-        }
-      });
-    });
-    
-    // Form navigation
-    let currentStep = 1;
-    
-    function updateProgress() {
-      // Update progress bar
-      const progressPercentage = (currentStep / 3) * 100;
-      progressBar.style.width = `${progressPercentage}%`;
-      
-      // Update step indicators
-      steps.forEach((step, index) => {
-        if (index + 1 < currentStep) {
-          step.classList.remove('active');
-          step.classList.add('completed');
-        } else if (index + 1 === currentStep) {
-          step.classList.add('active');
-          step.classList.remove('completed');
-        } else {
-          step.classList.remove('active', 'completed');
-        }
-      });
-      
-      // Show current form step
-      formSteps.forEach((step, index) => {
-        if (index + 1 === currentStep) {
-          step.classList.add('active');
-        } else {
-          step.classList.remove('active');
-        }
-      });
-    }
-    
-    nextToStep2Btn.addEventListener('click', () => {
-      currentStep = 2;
-      updateProgress();
-    });
-    
-    nextToStep3Btn.addEventListener('click', () => {
-      // Validate form before proceeding
-      if (!document.getElementById('terms-agree').checked) {
-        alert('Please agree to the Terms of Service and Privacy Policy');
-        return;
-      }
-      
-      currentStep = 3;
-      updateProgress();
-    });
-    
-    backToStep1Btn.addEventListener('click', () => {
-      currentStep = 1;
-      updateProgress();
-    });
-    
-    backToStep2Btn.addEventListener('click', () => {
-      currentStep = 2;
-      updateProgress();
-    });
-    
-    // Complete subscription
-    completeSubscriptionBtn.addEventListener('click', () => {
-      // In a real app, you would process payment here
-      
-      // Show success modal
-      successModal.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-    });
-    
-    // Close modal
-    closeModal.addEventListener('click', () => {
-      successModal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
-    
-    goToJournalBtn.addEventListener('click', () => {
-      // Redirect to journal page in a real app
-      alert('Redirecting to your journal...');
-      successModal.style.display = 'none';
-      document.body.style.overflow = 'auto';
-    });
-    
-    // Close modal when clicking outside
-    window.addEventListener('click', (e) => {
-      if (e.target === successModal) {
-        successModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }
-    });
-    
-    // Initialize
-    updateProgress();
-  </script>
+        paymentMethods.forEach(method => {
+            method.addEventListener('change', function() {
+                if (this.value === 'upi') {
+                    cardSection.style.display = 'none';
+                    upiSection.style.display = 'block';
+                } else {
+                    cardSection.style.display = 'block';
+                    upiSection.style.display = 'none';
+                }
+            });
+        });
+        
+        // Format card number input
+        const cardNumber = document.getElementById('cardNumber');
+        cardNumber.addEventListener('input', function(e) {
+            // Remove all non-digit characters
+            let value = this.value.replace(/\D/g, '');
+            
+            // Add space after every 4 digits
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            
+            // Update the input value
+            this.value = value;
+        });
+        
+        // Format expiration date input
+        const expDate = document.getElementById('expDate');
+        expDate.addEventListener('input', function(e) {
+            // Remove all non-digit characters
+            let value = this.value.replace(/\D/g, '');
+            
+            // Add slash after 2 digits
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2);
+            }
+            
+            // Update the input value
+            this.value = value;
+        });
+        
+        // Form submission
+        const continueBtn = document.querySelector('.continue-btn');
+        const paymentForm = document.querySelector('.payment-form');
+        const successMessage = document.querySelector('.success-message');
+        
+        continueBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            const termsChecked = document.getElementById('terms').checked;
+            if (!termsChecked) {
+                alert('Please agree to the Terms of Service and Privacy Policy');
+                return;
+            }
+            
+            // Simulate payment processing
+            paymentForm.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // Set expiry date (1 month from now)
+            const today = new Date();
+            const expiryDate = new Date(today.setMonth(today.getMonth() + 1));
+            document.getElementById('expiryDate').textContent = expiryDate.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        });
+    </script>
 </body>
 </html>
