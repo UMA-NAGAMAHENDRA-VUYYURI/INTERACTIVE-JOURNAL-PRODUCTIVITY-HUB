@@ -229,25 +229,23 @@
     return;
   }
 
-  // Get the current submission dates array or initialize it
+
   let submissionDates = JSON.parse(localStorage.getItem("submissionDates") || "[]");
 
-  // Add the current date-time ISO string
   submissionDates.push(new Date().toISOString());
 
-  // Save updated array back to localStorage
+  
   localStorage.setItem("submissionDates", JSON.stringify(submissionDates));
 
-  // Update publicationCount based on submissionDates length
+  
   localStorage.setItem("publicationCount", submissionDates.length.toString());
 
-  // Save the journal text under a key reflecting current count
   localStorage.setItem(`journalEntry_${submissionDates.length}`, text);
 
-  // Clear saved draft
+  
   localStorage.removeItem("journalEntry");
 
-  // Reset editor content
+  
   editor.innerHTML = "Start journaling...";
   document.getElementById("journal-status").textContent = "";
 
@@ -271,10 +269,8 @@
       challenge.completed += 1;
     }
 
-    // Save back to localStorage
     localStorage.setItem("challenges", JSON.stringify(challenges));
 
-    // Save full journal entry
     const timestamp = new Date().toISOString();
     const key = `journal_${challengeId}_${challenge.completed}_${timestamp}`;
     localStorage.setItem(key, text);
