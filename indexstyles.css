@@ -161,7 +161,7 @@ header nav .cta:hover {
 
 .content-section .content-wrapper {
   display: flex;
-  align-items: center;
+  align-items: right;
   gap: 2rem;
 }
 
